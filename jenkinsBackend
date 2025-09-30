@@ -7,14 +7,12 @@ pipeline {
         GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
         GIT_REPO = "git@github.com:serkan-can-eyvaz/waterWebApp.git"
         DEPLOY_DIR = "/home/waterWebApp"
-        NETWORK_NAME = "waterweb-net" // DB ve backend container aynı network'te olmalı
-        DB_HOST = "hairdresser-db" // DB container adı veya network alias
     }
 
     stages {
         stage('Checkout') {
             steps {
-                sshagent (credentials: ["${GIT_CREDENTIALS_ID}"]) {
+                sshagent(credentials: ["${GIT_CREDENTIALS_ID}"]) {
                     git branch: 'main', url: "${GIT_REPO}"
                 }
             }
@@ -28,22 +26,14 @@ pipeline {
             }
         }
 
-        stage('Copy to Deploy Directory') {
+        stage('Copy Backend to Deploy Directory') {
             steps {
                 script {
+                    // Tüm backend kaynaklarını deploy dizinine kopyala
                     sh """
                     mkdir -p ${DEPLOY_DIR}/backend_build/waterWebApp-backend
-                    rsync -av --ignore-missing-args back-end/waterWebApp-backend/target/ ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
+                    rsync -av ${WORKSPACE}/back-end/waterWebApp-backend/ ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
                     """
-                }
-            }
-        }
-
-        stage('Ensure Network') {
-            steps {
-                script {
-                    // Eğer network yoksa oluştur
-                    sh "docker network inspect ${NETWORK_NAME} >/dev/null 2>&1 || docker network create ${NETWORK_NAME}"
                 }
             }
         }
@@ -62,11 +52,11 @@ pipeline {
             steps {
                 dir("${DEPLOY_DIR}/backend_build/waterWebApp-backend") {
                     script {
-                        // Backend container'ını aynı network'e bağla
+                        // Eğer daha önce çalışıyorsa durdur
                         sh "docker compose down || true"
+                        // Build ve deploy
                         sh "docker compose build"
                         sh "docker compose up -d"
-                        sh "docker network connect ${NETWORK_NAME} ${CONTAINER_NAME} || true"
                     }
                 }
             }
@@ -75,8 +65,7 @@ pipeline {
 
     post {
         success {
-            echo "Backend başarıyla deploy edildi!"
-            echo "Backend API: http://localhost:9095"
+            echo "Backend container başarıyla deploy edildi!"
         }
         failure {
             echo "Backend deploy başarısız!"
