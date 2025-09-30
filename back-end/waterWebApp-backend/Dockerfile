@@ -19,7 +19,7 @@ COPY src src
 RUN ./mvnw clean package -DskipTests
 
 # Production stage
-FROM openjdk:17-jre-slim
+FROM openjdk:17-slim
 
 # Create app user
 RUN groupadd -r aquashare && useradd -r -g aquashare aquashare
