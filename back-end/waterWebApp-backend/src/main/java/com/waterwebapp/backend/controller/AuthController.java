@@ -15,12 +15,8 @@ import java.util.HashMap;
 @RequestMapping("/api/auth")
 public class AuthController {
     
-    private AuthService authService;
-    
     @Autowired
-    public void setAuthService(AuthService authService) {
-        this.authService = authService;
-    }
+    private AuthService authService;
     
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
