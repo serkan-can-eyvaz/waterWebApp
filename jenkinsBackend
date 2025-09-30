@@ -54,6 +54,7 @@ pipeline {
             steps {
                 dir("${DEPLOY_DIR}/waterWebApp-backend") {
                     script {
+                        // Yalnızca backend için
                         sh "docker compose down || true"
                         sh "docker compose build"
                         sh "docker compose up -d"
