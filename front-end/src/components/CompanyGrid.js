@@ -52,7 +52,7 @@ const CompanyGrid = () => {
             <div className="company-logo-container">
               {company.logoUrl ? (
                 <img 
-                  src={company.logoUrl.startsWith('/uploads/') ? `/api/files${company.logoUrl}` : `/api/files/logos/${company.logoUrl}`} 
+                  src={company.logoUrl.startsWith('/uploads/logos/') ? `/api/files/logos/${company.logoUrl.split('/').pop()}` : `/api/files/logos/${company.logoUrl}`} 
                   alt={company.companyName || 'Company Logo'}
                   className="company-logo"
                   onError={(e) => {
