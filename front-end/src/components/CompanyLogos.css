@@ -73,7 +73,7 @@
 .logo-placeholder {
   width: 200px;
   height: 200px;
-  background: transparent;
+  background: white;
   color: #333;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
   height: 200px;
   object-fit: contain;
   border-radius: 0;
-  background: transparent;
+  background: white;
 }
 
 .company-logo-img:hover {
