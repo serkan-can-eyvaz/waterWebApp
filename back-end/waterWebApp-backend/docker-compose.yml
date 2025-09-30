@@ -13,18 +13,6 @@ services:
     ports:
       - "9095:8080"
 
-  waterweb-nginx:
-    image: nginx:alpine
-    container_name: aquashare-nginx
-    depends_on:
-      - waterweb-backend
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ../front-end/build:/usr/share/nginx/html
-    ports:
-      - "80:80"
-      - "443:443"
 
-volumes:
-  aquashare_postgres_data:
+
 

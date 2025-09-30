@@ -6,6 +6,7 @@ pipeline {
         CONTAINER_NAME = "aquashare-nginx"
         GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
         GIT_REPO = "git@github.com:serkan-can-eyvaz/waterWebApp.git"
+        DEPLOY_DIR = "/home/waterWebApp"
     }
 
     stages {
@@ -34,15 +35,16 @@ pipeline {
             }
         }
 
-        stage('Copy Build to Nginx Volume') {
+        stage('Copy Frontend Build to Deploy Directory') {
             steps {
-                dir('front-end') {
-                    // build dizini yoksa oluştur, sonra build çıktısını kopyala
-                    sh '''
-                mkdir -p ../back-end/waterWebApp-backend/nginx/html
-                cp -r build/* ../back-end/waterWebApp-backend/nginx/html/
+                script {
+                    sh """
+                    # Gerekli dizinleri oluştur
+                    mkdir -p ${DEPLOY_DIR}/frontend_build
 
-                    '''
+                    # Build çıktısını home dizinine kopyala
+                    rsync -av --delete ${WORKSPACE}/front-end/build/ ${DEPLOY_DIR}/frontend_build/
+                    """
                 }
             }
         }
@@ -50,11 +52,8 @@ pipeline {
         stage('Clean Docker') {
             steps {
                 script {
-                    // Durdurulmuş container'ları sil
                     sh "docker container prune -f"
-                    // Kullanılmayan image'ları sil
                     sh "docker image prune -af"
-                    // Kullanılmayan volume'leri sil (isteğe bağlı)
                     sh "docker volume prune -f"
                 }
             }
@@ -62,7 +61,7 @@ pipeline {
 
         stage('Deploy with Docker Compose') {
             steps {
-                dir('back-end/waterWebApp-backend') {
+                dir("${DEPLOY_DIR}") {
                     script {
                         sh "docker compose down"
                         sh "docker compose up -d"
@@ -74,12 +73,11 @@ pipeline {
 
     post {
         success {
-            echo "AquaShare Frontend build, kopyalama ve deploy işlemi tamamlandı!"
-            echo "Backend API: http://localhost:9095"
+            echo "AquaShare Frontend build ve deploy işlemi tamamlandı!"
             echo "Frontend: http://localhost:80"
         }
         failure {
-            echo "AquaShare Frontend build, kopyalama veya deploy başarısız!"
+            echo "Frontend build veya deploy başarısız!"
         }
     }
 }
