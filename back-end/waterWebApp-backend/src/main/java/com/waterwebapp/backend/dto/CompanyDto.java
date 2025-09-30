@@ -27,6 +27,8 @@ public class CompanyDto {
     @jakarta.validation.constraints.Min(value = 100, message = "Minimum 100 adet sipariş verebilirsiniz")
     private Integer orderQuantity;
     
+    private String reference;
+    
     private String logoUrl;
     private Boolean isActive = true;
     
@@ -35,7 +37,7 @@ public class CompanyDto {
     
     public CompanyDto(String taxNumber, String companyName, String taxOffice, String address, 
                       String instagramUrl, String twitterUrl, String linkedinUrl, 
-                      Integer orderQuantity, String logoUrl) {
+                      Integer orderQuantity, String reference, String logoUrl) {
         this.taxNumber = taxNumber;
         this.companyName = companyName;
         this.taxOffice = taxOffice;
@@ -44,6 +46,7 @@ public class CompanyDto {
         this.twitterUrl = twitterUrl;
         this.linkedinUrl = linkedinUrl;
         this.orderQuantity = orderQuantity;
+        this.reference = reference;
         this.logoUrl = logoUrl;
     }
     
@@ -110,6 +113,14 @@ public class CompanyDto {
     
     public void setOrderQuantity(Integer orderQuantity) {
         this.orderQuantity = orderQuantity;
+    }
+    
+    public String getReference() {
+        return reference;
+    }
+    
+    public void setReference(String reference) {
+        this.reference = reference;
     }
     
     public String getLogoUrl() {

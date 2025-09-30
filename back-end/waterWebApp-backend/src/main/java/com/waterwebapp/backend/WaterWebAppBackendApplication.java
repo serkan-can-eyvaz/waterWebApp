@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@ComponentScan(basePackages = {"com.waterwebapp.backend"})
+@SpringBootApplication(scanBasePackages = {"com.waterwebapp.backend"})
 public class WaterWebAppBackendApplication {
 
     public static void main(String[] args) {

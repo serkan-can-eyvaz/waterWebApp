@@ -10,6 +10,7 @@ const JoinUsSection = () => {
     twitterUrl: '',
     linkedinUrl: '',
     orderQuantity: '',
+    reference: '',
     logoFile: null
   });
   const [loading, setLoading] = useState(false);
@@ -230,6 +231,20 @@ const JoinUsSection = () => {
                   required
                 />
                 <small className="field-info">Minimum 100 adet sipariş verebilirsiniz</small>
+              </div>
+
+              <div className="info-item">
+                <label htmlFor="reference">REFERANS</label>
+                <input
+                  type="text"
+                  id="reference"
+                  name="reference"
+                  value={formData.reference}
+                  onChange={handleInputChange}
+                  className="form-input"
+                  placeholder="Referans bilgisi (opsiyonel)"
+                />
+                <small className="field-info">Varsa referans bilginizi girebilirsiniz</small>
               </div>
 
               <div className="info-item logo-upload">
