@@ -15,6 +15,11 @@ public class StatisticsController {
     @Autowired
     private StatisticsService statisticsService;
 
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("Statistics Controller çalışıyor!");
+    }
+
     @GetMapping("/dashboard")
     public ResponseEntity<StatisticsDto> getDashboardStatistics() {
         StatisticsDto statistics = statisticsService.getDashboardStatistics();
