@@ -279,7 +279,7 @@ const JoinUsSection = () => {
         
         <div className="cta-section">
           <div className="cta-content">
-            <h3 className="cta-title">Bir Yudum İyilik Harekitine Sende Katıl</h3>
+            <h3 className="cta-title">Bir Yudum İyilik Hareketine Sende Katıl</h3>
             <div className="contact-info">
               <div className="reservation">
                 <span className="reservation-label">REZERVASYON</span>
