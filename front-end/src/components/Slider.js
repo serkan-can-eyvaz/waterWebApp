@@ -22,7 +22,7 @@ const Slider = () => {
 
   const fetchSlides = async () => {
     try {
-      const response = await fetch('http://localhost:9095/api/slides');
+      const response = await fetch('/api/slides');
       if (response.ok) {
         const data = await response.json();
         setSlides(data);
@@ -79,7 +79,7 @@ const Slider = () => {
             {slides.map((slide, index) => (
               <div key={slide.id} className="slide-item">
                     <img 
-                      src={`http://localhost:9095${encodeURI(slide.imageUrl)}`} 
+                      src={`${encodeURI(slide.imageUrl)}`} 
                       alt={slide.title}
                       className="slide-image"
                       style={{
@@ -93,7 +93,7 @@ const Slider = () => {
                         console.error('Resim yüklenemedi:', e.target.src);
                         // Boşluksuz URL ile tekrar dene
                         const cleanUrl = slide.imageUrl.replace(/\s+/g, '_');
-                        e.target.src = `http://localhost:9095${cleanUrl}`;
+                        e.target.src = `${cleanUrl}`;
                       }}
                       onLoad={() => {
                         console.log('Resim başarıyla yüklendi:', slide.title);

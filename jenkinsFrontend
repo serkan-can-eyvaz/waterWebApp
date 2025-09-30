@@ -34,13 +34,13 @@ pipeline {
             }
         }
 
-        stage('Copy Build to AquaShare Directory') {
+        stage('Copy Build to Nginx Directory') {
             steps {
                 dir('front-end') {
-                    // AquaShare için ayrı dizin oluştur ve build çıktısını kopyala
+                    // Jenkins workspace'den alıp nginx için yeni dizin oluştur
                     sh '''
-                mkdir -p /home/waterWebApp/frontend_build
-                cp -r build/* /home/waterWebApp/frontend_build/
+                mkdir -p /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build
+                cp -r build/* /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/
 
                     '''
                 }

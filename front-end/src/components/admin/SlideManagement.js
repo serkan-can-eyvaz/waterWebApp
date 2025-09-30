@@ -15,7 +15,7 @@ const SlideManagement = () => {
 
   const fetchSlides = async () => {
     try {
-      const response = await fetch('http://localhost:9095/api/slides/all');
+      const response = await fetch('/api/slides/all');
       if (response.ok) {
         const data = await response.json();
         setSlides(data);
@@ -41,7 +41,7 @@ const SlideManagement = () => {
       const uploadFormData = new FormData();
       uploadFormData.append('file', formData.imageFile);
 
-      const response = await fetch('http://localhost:9095/api/slides/upload', {
+      const response = await fetch('/api/slides/upload', {
         method: 'POST',
         body: uploadFormData
       });
@@ -67,7 +67,7 @@ const SlideManagement = () => {
   const deleteSlide = async (id) => {
     if (window.confirm('Bu slide\'ı silmek istediğinizden emin misiniz?')) {
       try {
-        const response = await fetch(`http://localhost:9095/api/slides/${id}`, {
+        const response = await fetch(`/api/slides/${id}`, {
           method: 'DELETE'
         });
 
@@ -122,7 +122,7 @@ const SlideManagement = () => {
         {slides.map(slide => (
           <div key={slide.id} className="slide-card">
             <div className="slide-image">
-              <img src={`http://localhost:9095${slide.imageUrl}`} alt={slide.title} />
+              <img src={`${slide.imageUrl}`} alt={slide.title} />
             </div>
             <div className="slide-info">
               <h4>{slide.title}</h4>

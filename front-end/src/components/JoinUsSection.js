@@ -70,7 +70,7 @@ const JoinUsSection = () => {
         logoFormData.append('file', formData.logoFile);
         logoFormData.append('taxNumber', formData.taxNumber);
 
-        const logoResponse = await fetch('http://localhost:9095/api/files/upload/logo', {
+        const logoResponse = await fetch('/api/files/upload/logo', {
           method: 'POST',
           body: logoFormData
         });
@@ -95,7 +95,7 @@ const JoinUsSection = () => {
         logoUrl: logoUrl
       };
 
-      const response = await fetch('http://localhost:9095/api/companies', {
+      const response = await fetch('/api/companies', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
