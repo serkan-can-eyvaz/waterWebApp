@@ -101,9 +101,9 @@ back-end/waterWebApp-backend/.dockerignore
 # JENKINS
 # ===========================================
 
-# Jenkins files
-jenkinsFrontend
-jenkinsBackend
+# Jenkins files (commented out - files are now tracked)
+# jenkinsFrontend
+# jenkinsBackend
 jenkins/
 .jenkins/
 
