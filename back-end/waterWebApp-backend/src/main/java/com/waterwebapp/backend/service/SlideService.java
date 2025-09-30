@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +26,9 @@ public class SlideService {
     
     @Autowired
     private CompanyRepository companyRepository;
+    
+    @Autowired
+    private FileStorageService fileStorageService;
     
     public SlideDto createSlide(SlideDto slideDto) {
         Slide slide = new Slide();
@@ -91,10 +98,32 @@ public class SlideService {
         Optional<Slide> optionalSlide = slideRepository.findById(id);
         if (optionalSlide.isPresent()) {
             Slide slide = optionalSlide.get();
-            slide.setIsActive(false);
-            slideRepository.save(slide);
+            
+            // Önce dosyayı sil
+            if (slide.getImageUrl() != null && !slide.getImageUrl().isEmpty()) {
+                try {
+                    deleteSlideFile(slide.getImageUrl());
+                } catch (IOException e) {
+                    // Dosya silme hatası logla ama işlemi durdurma
+                    System.err.println("Dosya silinirken hata: " + e.getMessage());
+                }
+            }
+            
+            // Veritabanından tamamen sil
+            slideRepository.delete(slide);
         } else {
             throw new RuntimeException("Slide bulunamadı: " + id);
+        }
+    }
+    
+    private void deleteSlideFile(String imageUrl) throws IOException {
+        if (imageUrl != null && imageUrl.startsWith("/uploads/slides/")) {
+            String filename = imageUrl.substring("/uploads/slides/".length());
+            Path filePath = Paths.get("/app/uploads/slides/" + filename);
+            
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+            }
         }
     }
     
