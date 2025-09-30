@@ -1,10 +1,13 @@
-services:
-  waterweb-backend:
+  backend:
     build: .
-    container_name: aquashare-backend
+    container_name: hairdresser-backend
+    depends_on:
+      - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://<DB_CONTAINER_NAME>:5432/waterWeb
-      SPRING_DATASOURCE_USERNAME: waterapp_user
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/waterWeb
+      SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 2323
     ports:
-      - "9095:8080"
+      - "9590:8080"
+volumes:
+  postgres_data:
