@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = "aquashare-backend"
         CONTAINER_NAME = "aquashare-backend"
         GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
-        GIT_REPO = "git@github.com:serkan-can-eyvaz/aquashare-waterweb.git"
+        GIT_REPO = "git@github.com:serkan-can-eyvaz/waterWebApp.git"
     }
 
     stages {
