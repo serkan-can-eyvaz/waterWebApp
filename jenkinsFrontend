@@ -38,12 +38,10 @@ pipeline {
             steps {
                 dir('front-end') {
                     sh '''
-                        # Hedef alt dizini oluştur
-                        mkdir -p /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
-                        chown -R jenkins:jenkins /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
-                        # build içeriğini alt dizine kopyala
-                        cp -r build/* /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb/
+                       sudo mkdir -p /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
+                       sudo cp -r build/* /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
                     '''
+                    
                 }
             }
         }
