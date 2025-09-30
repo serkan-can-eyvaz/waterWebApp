@@ -6,19 +6,18 @@ pipeline {
         CONTAINER_NAME = "aquashare-backend"
         GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
         GIT_REPO = "git@github.com:serkan-can-eyvaz/waterWebApp.git"
-        DEPLOY_DIR = "/home/waterWebApp"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                sshagent(credentials: ["${GIT_CREDENTIALS_ID}"]) {
+                sshagent (credentials: ["${GIT_CREDENTIALS_ID}"]) {
                     git branch: 'main', url: "${GIT_REPO}"
                 }
             }
         }
 
-        stage('Build Backend') {
+        stage('Build Jar') {
             steps {
                 dir('back-end/waterWebApp-backend') {
                     sh "mvn clean package -DskipTests"
@@ -26,23 +25,14 @@ pipeline {
             }
         }
 
-        stage('Copy Backend to Deploy Directory') {
-            steps {
-                script {
-                    // Tüm backend kaynaklarını deploy dizinine kopyala
-                    sh """
-                    mkdir -p ${DEPLOY_DIR}/backend_build/waterWebApp-backend
-                    rsync -av ${WORKSPACE}/back-end/waterWebApp-backend/ ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
-                    """
-                }
-            }
-        }
-
         stage('Clean Docker') {
             steps {
                 script {
+                    // Durdurulmuş container'ları sil
                     sh "docker container prune -f"
+                    // Kullanılmayan image'ları sil
                     sh "docker image prune -af"
+                    // Kullanılmayan volume'leri sil (isteğe bağlı)
                     sh "docker volume prune -f"
                 }
             }
@@ -50,11 +40,9 @@ pipeline {
 
         stage('Build & Deploy with Docker Compose') {
             steps {
-                dir("${DEPLOY_DIR}/backend_build/waterWebApp-backend") {
+                dir('back-end/waterWebApp-backend') {
                     script {
-                        // Eğer daha önce çalışıyorsa durdur
-                        sh "docker compose down || true"
-                        // Build ve deploy
+                        sh "docker compose down"
                         sh "docker compose build"
                         sh "docker compose up -d"
                     }
@@ -65,10 +53,12 @@ pipeline {
 
     post {
         success {
-            echo "Backend container başarıyla deploy edildi!"
+            echo "AquaShare Backend, Database ve Nginx container'ları başarıyla ayağa kalktı!"
+            echo "Backend API: http://localhost:9095"
+            echo "Frontend: http://localhost:80"
         }
         failure {
-            echo "Backend deploy başarısız!"
+            echo "AquaShare Backend build veya deploy başarısız!"
         }
     }
 }
