@@ -81,13 +81,11 @@ const CompanyLogos = () => {
                           e.target.nextSibling.style.display = 'flex';
                         }}
                       />
-                    ) : null}
-                    <div 
-                      className="logo-placeholder" 
-                      style={{ display: company.logoUrl ? 'none' : 'flex' }}
-                    >
-                      {company.companyName ? company.companyName.charAt(0).toUpperCase() : '🏢'}
-                    </div>
+                    ) : (
+                      <div className="logo-placeholder">
+                        {company.companyName ? company.companyName.charAt(0).toUpperCase() : '🏢'}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
