@@ -1,0 +1,170 @@
+.statistics-section {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 50%, #bbdefb 100%);
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.statistics-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="bubbles" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="3" fill="rgba(33,150,243,0.1)"/><circle cx="75" cy="75" r="2" fill="rgba(33,150,243,0.1)"/><circle cx="50" cy="10" r="1.5" fill="rgba(33,150,243,0.1)"/><circle cx="90" cy="50" r="2.5" fill="rgba(33,150,243,0.1)"/><circle cx="10" cy="90" r="1.8" fill="rgba(33,150,243,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23bubbles)"/></svg>');
+  animation: bubbleFloat 15s ease-in-out infinite;
+}
+
+.statistics-container {
+  display: flex;
+  gap: 100px;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.statistic-item {
+  text-align: center;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(33, 150, 243, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.statistic-item::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(33, 150, 243, 0.1), transparent);
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.statistic-item:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s ease-in-out;
+}
+
+.statistic-item:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 30px 60px rgba(33, 150, 243, 0.2);
+}
+
+.statistic-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1976D2;
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 3;
+}
+
+.statistic-label::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #2196F3, #21CBF3);
+  border-radius: 2px;
+}
+
+.statistic-value {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 3;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.statistic-value.pink {
+  background: linear-gradient(135deg, #E91E63, #F48FB1, #FCE4EC);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.statistic-value.green {
+  background: linear-gradient(135deg, #00BCD4, #26C6DA, #4DD0E1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.statistic-unit {
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+  z-index: 3;
+}
+
+.statistic-unit.pink {
+  color: #E91E63;
+}
+
+.statistic-unit.green {
+  color: #00BCD4;
+}
+
+@keyframes bubbleFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(1deg); }
+  66% { transform: translateY(10px) rotate(-1deg); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+@media (max-width: 768px) {
+  .statistics-section {
+    padding: 40px 20px;
+  }
+  
+  .statistics-container {
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .statistic-label {
+    font-size: 16px;
+  }
+  
+  .statistic-unit {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .statistics-container {
+    gap: 40px;
+  }
+  
+  .statistic-label {
+    font-size: 14px;
+  }
+  
+  .statistic-unit {
+    font-size: 14px;
+  }
+}

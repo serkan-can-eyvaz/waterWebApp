@@ -1,0 +1,186 @@
+.project-info {
+  background-color: white;
+  padding: 60px 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 50px;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+.project-description {
+  line-height: 1.8;
+  color: #444;
+}
+
+.intro-section {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.intro-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.intro-slogan {
+  font-size: 1.4rem;
+  color: #ff6b9d;
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0;
+}
+
+.goal-section {
+  margin-bottom: 40px;
+  padding: 25px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #51cf66;
+  border-radius: 0 10px 10px 0;
+}
+
+.goal-text {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #444;
+}
+
+.benefits-section, .value-section {
+  margin-bottom: 40px;
+}
+
+.benefits-title, .value-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.benefits-grid, .value-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.benefit-item, .value-item {
+  padding: 25px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-item:hover, .value-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.benefit-subtitle, .value-subtitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.benefit-item p, .value-item p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.konya-section {
+  margin-top: 50px;
+  padding: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.konya-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.konya-text, .konya-conclusion {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.7;
+}
+
+.konya-conclusion {
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .project-info {
+    padding: 40px 15px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .intro-title {
+    font-size: 1.8rem;
+  }
+  
+  .intro-slogan {
+    font-size: 1.2rem;
+  }
+  
+  .benefits-grid, .value-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .benefit-item, .value-item {
+    padding: 20px;
+  }
+  
+  .konya-section {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-section {
+    padding: 20px;
+  }
+  
+  .goal-section {
+    padding: 20px;
+  }
+  
+  .konya-section {
+    padding: 20px;
+  }
+}

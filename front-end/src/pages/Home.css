@@ -1,0 +1,72 @@
+.home {
+  min-height: 100vh;
+  background-color: white;
+}
+
+.project-details-link {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 50%, #e1f5fe 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-details-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(33,150,243,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  animation: dotFloat 20s ease-in-out infinite;
+}
+
+.details-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 18px 40px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #2196F3 0%, #21CBF3 50%, #00BCD4 100%);
+  box-shadow: 0 12px 30px rgba(33, 150, 243, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.details-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.details-link:hover::before {
+  left: 100%;
+}
+
+.details-link:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(33, 150, 243, 0.4);
+  background: linear-gradient(135deg, #1976D2 0%, #2196F3 50%, #21CBF3 100%);
+}
+
+.details-link:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+@keyframes dotFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+}
