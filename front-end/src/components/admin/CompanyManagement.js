@@ -134,7 +134,7 @@ const CompanyManagement = () => {
               <div className="company-header-card">
                 <div className="company-logo">
                   {company.logoUrl ? (
-                    <img src={`${company.logoUrl}`} alt={company.companyName} />
+                    <img src={`/api/files${company.logoUrl}`} alt={company.companyName} />
                   ) : (
                     <div className="no-logo">🏢</div>
                   )}

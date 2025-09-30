@@ -72,10 +72,11 @@ const CompanyLogos = () => {
                   <div key={company.taxNumber} className="logo-item">
                     {company.logoUrl ? (
                       <img 
-                        src={company.logoUrl} 
+                        src={`/api/files${company.logoUrl}`} 
                         alt={company.companyName}
                         className="company-logo-img"
                         onError={(e) => {
+                          console.log('Logo yüklenemedi:', company.logoUrl);
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';
                         }}

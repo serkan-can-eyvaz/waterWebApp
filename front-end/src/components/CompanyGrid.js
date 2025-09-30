@@ -52,10 +52,11 @@ const CompanyGrid = () => {
             <div className="company-logo-container">
               {company.logoUrl ? (
                 <img 
-                  src={company.logoUrl} 
+                  src={`/api/files${company.logoUrl}`} 
                   alt={company.companyName || 'Company Logo'}
                   className="company-logo"
                   onError={(e) => {
+                    console.log('Grid logo yüklenemedi:', company.logoUrl);
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'flex';
                   }}
