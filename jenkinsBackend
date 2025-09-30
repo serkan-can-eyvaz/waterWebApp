@@ -6,7 +6,9 @@ pipeline {
         CONTAINER_NAME = "aquashare-backend"
         GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
         GIT_REPO = "git@github.com:serkan-can-eyvaz/waterWebApp.git"
-        DEPLOY_DIR = "/home/waterWebApp/backend_build"
+        DEPLOY_DIR = "/home/waterWebApp"
+        NETWORK_NAME = "waterweb-net" // DB ve backend container aynı network'te olmalı
+        DB_HOST = "hairdresser-db" // DB container adı veya network alias
     }
 
     stages {
@@ -18,7 +20,7 @@ pipeline {
             }
         }
 
-        stage('Build Backend Jar') {
+        stage('Build Backend') {
             steps {
                 dir('back-end/waterWebApp-backend') {
                     sh "mvn clean package -DskipTests"
@@ -26,16 +28,22 @@ pipeline {
             }
         }
 
-        stage('Copy Build to Deploy Directory') {
+        stage('Copy to Deploy Directory') {
             steps {
                 script {
                     sh """
-                    # Hedef dizin oluştur
-                    mkdir -p ${DEPLOY_DIR}/waterWebApp-backend
-
-                    # Backend target klasörünü kopyala
-                    rsync -av --ignore-missing-args back-end/waterWebApp-backend/target/ ${DEPLOY_DIR}/waterWebApp-backend/
+                    mkdir -p ${DEPLOY_DIR}/backend_build/waterWebApp-backend
+                    rsync -av --ignore-missing-args back-end/waterWebApp-backend/target/ ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
                     """
+                }
+            }
+        }
+
+        stage('Ensure Network') {
+            steps {
+                script {
+                    // Eğer network yoksa oluştur
+                    sh "docker network inspect ${NETWORK_NAME} >/dev/null 2>&1 || docker network create ${NETWORK_NAME}"
                 }
             }
         }
@@ -52,12 +60,13 @@ pipeline {
 
         stage('Build & Deploy with Docker Compose') {
             steps {
-                dir("${DEPLOY_DIR}/waterWebApp-backend") {
+                dir("${DEPLOY_DIR}/backend_build/waterWebApp-backend") {
                     script {
-                        // Yalnızca backend için
+                        // Backend container'ını aynı network'e bağla
                         sh "docker compose down || true"
                         sh "docker compose build"
                         sh "docker compose up -d"
+                        sh "docker network connect ${NETWORK_NAME} ${CONTAINER_NAME} || true"
                     }
                 }
             }
