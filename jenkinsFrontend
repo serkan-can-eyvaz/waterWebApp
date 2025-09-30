@@ -1,0 +1,85 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "aquashare-frontend"
+        CONTAINER_NAME = "aquashare-nginx"
+        GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
+        GIT_REPO = "git@github.com:serkan-can-eyvaz/aquashare-waterweb.git"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                sshagent (credentials: ["${GIT_CREDENTIALS_ID}"]) {
+                    git branch: 'main', url: "${GIT_REPO}"
+                }
+            }
+        }
+
+        stage('Build Frontend') {
+            steps {
+                dir('front-end') {
+                    sh "npm install"
+                    sh "npm run build"
+                }
+            }
+        }
+
+        stage('Check Build Output') {
+            steps {
+                dir('front-end') {
+                    sh 'ls -la'
+                }
+            }
+        }
+
+        stage('Copy Build to Nginx Volume') {
+            steps {
+                dir('front-end') {
+                    // build dizini yoksa oluştur, sonra build çıktısını kopyala
+                    sh '''
+                mkdir -p ../back-end/waterWebApp-backend/nginx/html
+                cp -r build/* ../back-end/waterWebApp-backend/nginx/html/
+
+                    '''
+                }
+            }
+        }
+
+        stage('Clean Docker') {
+            steps {
+                script {
+                    // Durdurulmuş container'ları sil
+                    sh "docker container prune -f"
+                    // Kullanılmayan image'ları sil
+                    sh "docker image prune -af"
+                    // Kullanılmayan volume'leri sil (isteğe bağlı)
+                    sh "docker volume prune -f"
+                }
+            }
+        }
+
+        stage('Deploy with Docker Compose') {
+            steps {
+                dir('back-end/waterWebApp-backend') {
+                    script {
+                        sh "docker compose down"
+                        sh "docker compose up -d"
+                    }
+                }
+            }
+        }
+    } // stages bloğu sonu
+
+    post {
+        success {
+            echo "AquaShare Frontend build, kopyalama ve deploy işlemi tamamlandı!"
+            echo "Backend API: http://localhost:9095"
+            echo "Frontend: http://localhost:80"
+        }
+        failure {
+            echo "AquaShare Frontend build, kopyalama veya deploy başarısız!"
+        }
+    }
+}

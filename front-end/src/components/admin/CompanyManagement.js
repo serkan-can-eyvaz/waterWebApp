@@ -14,7 +14,7 @@ const CompanyManagement = () => {
 
   const fetchCompanies = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/companies/all');
+      const response = await fetch('http://localhost:9095/api/companies/all');
       if (response.ok) {
         const data = await response.json();
         setCompanies(data);
@@ -26,7 +26,7 @@ const CompanyManagement = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/companies/stats');
+      const response = await fetch('http://localhost:9095/api/companies/stats');
       if (response.ok) {
         const data = await response.json();
         setStats(data);
@@ -39,7 +39,7 @@ const CompanyManagement = () => {
   const deleteCompany = async (taxNumber) => {
     if (window.confirm('Bu firmayı silmek istediğinizden emin misiniz?')) {
       try {
-        const response = await fetch(`http://localhost:8080/api/companies/${taxNumber}`, {
+        const response = await fetch(`http://localhost:9095/api/companies/${taxNumber}`, {
           method: 'DELETE'
         });
 
@@ -64,7 +64,7 @@ const CompanyManagement = () => {
         isActive: !company.isActive
       };
 
-      const response = await fetch(`http://localhost:8080/api/companies/${company.taxNumber}`, {
+      const response = await fetch(`http://localhost:9095/api/companies/${company.taxNumber}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -134,7 +134,7 @@ const CompanyManagement = () => {
               <div className="company-header-card">
                 <div className="company-logo">
                   {company.logoUrl ? (
-                    <img src={`http://localhost:8080${company.logoUrl}`} alt={company.companyName} />
+                    <img src={`http://localhost:9095${company.logoUrl}`} alt={company.companyName} />
                   ) : (
                     <div className="no-logo">🏢</div>
                   )}
@@ -242,7 +242,7 @@ const CompanyManagement = () => {
                   <p><strong>Adres:</strong> {selectedCompany.address}</p>
                   <p><strong>Sipariş Adeti:</strong> {selectedCompany.orderQuantity}</p>
                   {selectedCompany.logoUrl && (
-                    <p><strong>Logo:</strong> <a href={`http://localhost:8080${selectedCompany.logoUrl}`} target="_blank" rel="noopener noreferrer">Logo Görüntüle</a></p>
+                    <p><strong>Logo:</strong> <a href={`http://localhost:9095${selectedCompany.logoUrl}`} target="_blank" rel="noopener noreferrer">Logo Görüntüle</a></p>
                   )}
                 </div>
                 <div className="detail-section">
