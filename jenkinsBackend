@@ -6,7 +6,7 @@ pipeline {
         CONTAINER_NAME = "aquashare-backend"
         GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
         GIT_REPO = "git@github.com:serkan-can-eyvaz/waterWebApp.git"
-        DEPLOY_DIR = "/home/waterWebApp/backend_build/waterWebApp-backend"
+        DEPLOY_DIR = "/home/waterWebApp/backend_build"
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Build Backend') {
+        stage('Build Backend Jar') {
             steps {
                 dir('back-end/waterWebApp-backend') {
                     sh "mvn clean package -DskipTests"
@@ -26,14 +26,15 @@ pipeline {
             }
         }
 
-        stage('Copy to Deploy Directory') {
+        stage('Copy Build to Deploy Directory') {
             steps {
                 script {
                     sh """
-                    mkdir -p ${DEPLOY_DIR}
+                    # Hedef dizin oluştur
+                    mkdir -p ${DEPLOY_DIR}/waterWebApp-backend
 
-                    # Backend build dosyalarını kopyala
-                    rsync -av --ignore-missing-args target/ ${DEPLOY_DIR}/
+                    # Backend target klasörünü kopyala
+                    rsync -av --ignore-missing-args back-end/waterWebApp-backend/target/ ${DEPLOY_DIR}/waterWebApp-backend/
                     """
                 }
             }
@@ -51,7 +52,7 @@ pipeline {
 
         stage('Build & Deploy with Docker Compose') {
             steps {
-                dir("${DEPLOY_DIR}") {
+                dir("${DEPLOY_DIR}/waterWebApp-backend") {
                     script {
                         sh "docker compose down || true"
                         sh "docker compose build"
