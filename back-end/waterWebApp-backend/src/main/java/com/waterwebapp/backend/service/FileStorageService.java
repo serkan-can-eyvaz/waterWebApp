@@ -53,6 +53,19 @@ public class FileStorageService {
         // Dosyayı kaydet
         Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
+        // Dosya izinlerini düzelt (105:111 backend kullanıcısı için)
+        try {
+            Files.setPosixFilePermissions(targetPath, java.util.Set.of(
+                java.nio.file.attribute.PosixFilePermission.OWNER_READ,
+                java.nio.file.attribute.PosixFilePermission.OWNER_WRITE,
+                java.nio.file.attribute.PosixFilePermission.GROUP_READ,
+                java.nio.file.attribute.PosixFilePermission.OTHERS_READ
+            ));
+        } catch (Exception e) {
+            // İzin düzeltme hatası logla ama işlemi durdurma
+            System.err.println("Dosya izinleri düzeltilemedi: " + e.getMessage());
+        }
+
         // URL'yi oluştur
         return "/uploads/logos/" + uniqueFileName;
     }
@@ -87,12 +100,33 @@ public class FileStorageService {
         // Dosyayı kaydet
         Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
+        // Dosya izinlerini ayarla (105:111 backend kullanıcısı)
+        try {
+            Files.setPosixFilePermissions(targetPath, java.util.Set.of(
+                java.nio.file.attribute.PosixFilePermission.OWNER_READ,
+                java.nio.file.attribute.PosixFilePermission.OWNER_WRITE,
+                java.nio.file.attribute.PosixFilePermission.GROUP_READ,
+                java.nio.file.attribute.PosixFilePermission.OTHERS_READ
+            ));
+        } catch (Exception e) {
+            // İzin ayarlama hatası logla ama işlemi durdurma
+            System.err.println("Dosya izinleri ayarlanırken hata: " + e.getMessage());
+        }
+
         // URL'yi oluştur
         return "/uploads/slides/" + uniqueFileName;
     }
 
     public byte[] getFile(String filePath) throws IOException {
-        Path path = Paths.get(uploadDir).resolve(filePath.substring(1)); // /uploads/... -> uploads/...
+        // /uploads/slides/filename -> slides/filename
+        String relativePath = filePath.substring("/uploads/".length());
+        Path path = Paths.get(uploadDir).resolve(relativePath);
+        
+        System.out.println("DEBUG: filePath = " + filePath);
+        System.out.println("DEBUG: relativePath = " + relativePath);
+        System.out.println("DEBUG: fullPath = " + path.toAbsolutePath());
+        System.out.println("DEBUG: file exists = " + Files.exists(path));
+        
         if (Files.exists(path)) {
             return Files.readAllBytes(path);
         }

@@ -18,6 +18,11 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
     
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("FileController çalışıyor!");
+    }
+    
     @PostMapping("/upload/logo")
     public ResponseEntity<?> uploadLogo(@RequestParam("file") MultipartFile file,
                                       @RequestParam("taxNumber") String taxNumber) {
