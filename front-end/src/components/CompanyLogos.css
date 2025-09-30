@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: white;
   border: none;
   padding: 0;
 }
@@ -89,7 +89,7 @@
 .company-logo-img {
   width: 200px;
   height: 200px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 0;
   background: transparent;
 }
