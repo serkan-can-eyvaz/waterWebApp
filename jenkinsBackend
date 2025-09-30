@@ -26,16 +26,18 @@ pipeline {
             }
         }
 
-        stage('Copy to Deploy Directory') {
+        stage('Copy Build to Deploy Directory') {
             steps {
                 script {
-                    def src = "${WORKSPACE}/back-end/waterWebApp-backend/target/"
-                    def dest = "${DEPLOY_DIR}/backend_build/waterWebApp-backend/"
-
                     sh """
-                    mkdir -p ${dest}
-                    rsync -av --delete "${src}" "${dest}"
-                    cp "${WORKSPACE}/back-end/waterWebApp-backend/docker-compose.yml" "${dest}"
+                    mkdir -p ${DEPLOY_DIR}/backend_build/waterWebApp-backend
+
+                    # target klasörünü kopyala
+                    rsync -av --delete ${WORKSPACE}/back-end/waterWebApp-backend/target/ ${DEPLOY_DIR}/backend_build/waterWebApp-backend/target/
+
+                    # Dockerfile ve docker-compose.yml dosyalarını da kopyala
+                    rsync -av ${WORKSPACE}/back-end/waterWebApp-backend/Dockerfile ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
+                    rsync -av ${WORKSPACE}/back-end/waterWebApp-backend/docker-compose.yml ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
                     """
                 }
             }
@@ -66,7 +68,7 @@ pipeline {
 
     post {
         success {
-            echo "Backend başarıyla deploy edildi!"
+            echo "Backend başarıyla deploy edildi! API: http://localhost:9095"
         }
         failure {
             echo "Backend build veya deploy başarısız!"
