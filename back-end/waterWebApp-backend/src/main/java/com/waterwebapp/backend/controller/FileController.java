@@ -92,4 +92,32 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/logos/{filename}")
+    public ResponseEntity<byte[]> getLogo(@PathVariable String filename) {
+        try {
+            String filePath = "/uploads/logos/" + filename;
+            byte[] fileBytes = fileStorageService.getFile(filePath);
+            
+            if (fileBytes != null) {
+                // Content type belirle
+                String contentType = "image/jpeg"; // default
+                if (filename.toLowerCase().endsWith(".png")) {
+                    contentType = "image/png";
+                } else if (filename.toLowerCase().endsWith(".svg")) {
+                    contentType = "image/svg+xml";
+                } else if (filename.toLowerCase().endsWith(".gif")) {
+                    contentType = "image/gif";
+                }
+                
+                return ResponseEntity.ok()
+                    .header("Content-Type", contentType)
+                    .body(fileBytes);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
