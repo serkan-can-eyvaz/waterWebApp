@@ -37,15 +37,17 @@ pipeline {
         stage('Copy Build to Nginx Directory') {
             steps {
                 dir('front-end') {
-                    // Jenkins workspace'den alıp nginx için yeni dizin oluştur
                     sh '''
-                mkdir -p /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build
-                cp -r build/* /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/
-
+                        # Hedef alt dizini oluştur
+                        mkdir -p /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
+                        chown -R jenkins:jenkins /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
+                        # build içeriğini alt dizine kopyala
+                        cp -r build/* /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb/
                     '''
                 }
             }
         }
+
     } // stages bloğu sonu
 
     post {
