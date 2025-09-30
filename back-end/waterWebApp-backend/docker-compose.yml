@@ -2,8 +2,6 @@ services:
   backend:
     build: .
     container_name: aquashare-backend
-    depends_on:
-      - hairdresser-db
     ports:
       - "9095:8080"
     environment:
