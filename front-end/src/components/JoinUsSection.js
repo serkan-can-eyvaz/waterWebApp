@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './JoinUsSection.css';
+import CompanyGrid from './CompanyGrid';
 
 const JoinUsSection = () => {
   const [formData, setFormData] = useState({
@@ -276,6 +277,9 @@ const JoinUsSection = () => {
             </div>
           </form>
         </div>
+        
+        {/* Firma Logoları Grid */}
+        <CompanyGrid />
         
         <div className="cta-section">
           <div className="cta-content">
