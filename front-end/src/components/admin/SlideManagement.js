@@ -15,17 +15,21 @@ const SlideManagement = () => {
 
   const fetchSlides = async () => {
     try {
+      console.log('Slide verileri yükleniyor...');
       const response = await fetch('/api/slides/all');
+      console.log('Response status:', response.status);
+      
       if (response.ok) {
         const data = await response.json();
+        console.log('Gelen slide verileri:', data);
         setSlides(data);
+      } else {
+        console.error('Slide yükleme başarısız:', response.status);
       }
     } catch (error) {
       console.error('Slide yükleme hatası:', error);
     }
   };
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,6 +71,7 @@ const SlideManagement = () => {
   const deleteSlide = async (id) => {
     if (window.confirm('Bu slide\'ı silmek istediğinizden emin misiniz?')) {
       try {
+        console.log('Slide siliniyor:', id);
         const response = await fetch(`/api/slides/${id}`, {
           method: 'DELETE'
         });
@@ -119,20 +124,11 @@ const SlideManagement = () => {
       )}
 
       <div className="slides-grid">
-        {/* Her zaman test slide göster */}
+        {/* Test Slide - Her zaman görünsün */}
         <div className="slide-card">
           <div className="slide-image">
-            <div style={{
-              width: '100%',
-              height: '200px',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              fontSize: '18px'
-            }}>
-              Test Slide 1
+            <div className="test-slide-placeholder">
+              <span>🎨 Test Slide</span>
             </div>
           </div>
           <div className="slide-info">
@@ -154,7 +150,7 @@ const SlideManagement = () => {
           </div>
         </div>
 
-        {/* Gerçek slide'lar varsa onları da göster */}
+        {/* Gerçek Slide'lar */}
         {slides.map(slide => (
           <div key={slide.id} className="slide-card">
             <div className="slide-image">
@@ -188,7 +184,6 @@ const SlideManagement = () => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };
