@@ -6,7 +6,7 @@ pipeline {
         CONTAINER_NAME = "aquashare-backend"
         GIT_CREDENTIALS_ID = "0b91579b-700e-4d1d-a0cf-0d55386b088f"
         GIT_REPO = "git@github.com:serkan-can-eyvaz/waterWebApp.git"
-        DEPLOY_DIR = "/home/waterWebApp/backend_build"
+        DEPLOY_DIR = "/home/waterWebApp"
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Build Jar') {
+        stage('Build Backend') {
             steps {
                 dir('back-end/waterWebApp-backend') {
                     sh "mvn clean package -DskipTests"
@@ -26,14 +26,19 @@ pipeline {
             }
         }
 
-        stage('Copy Build to Deploy Directory') {
+        stage('Copy to Deploy Directory') {
             steps {
                 script {
+                    // Deploy dizinlerini oluştur
                     sh """
-                    # Hedef dizini oluştur
-                    mkdir -p ${DEPLOY_DIR}
-                    # Backend build çıktılarını kopyala
-                    rsync -av --delete back-end/waterWebApp-backend/target/ ${DEPLOY_DIR}/
+                    mkdir -p ${DEPLOY_DIR}/backend_build/waterWebApp-backend
+                    """
+
+                    // Backend target dosyalarını kopyala
+                    rsync -av --delete ${WORKSPACE}/back-end/waterWebApp-backend/target/ ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
+
+                    // Docker Compose dosyasını da deploy dizinine kopyala
+                    cp ${WORKSPACE}/back-end/waterWebApp-backend/docker-compose.yml ${DEPLOY_DIR}/backend_build/waterWebApp-backend/
                     """
                 }
             }
@@ -51,8 +56,7 @@ pipeline {
 
         stage('Build & Deploy with Docker Compose') {
             steps {
-                dir('/home/waterWebApp/backend_build/waterWebApp-backend') { 
-                    // docker-compose.yml burada olacak şekilde
+                dir("${DEPLOY_DIR}/backend_build/waterWebApp-backend") {
                     script {
                         sh "docker compose down"
                         sh "docker compose build"
@@ -65,10 +69,11 @@ pipeline {
 
     post {
         success {
-            echo "WaterWeb Backend container’ları başarıyla ayağa kalktı!"
+            echo "Backend başarıyla deploy edildi!"
+            echo "Backend API: http://localhost:9095"
         }
         failure {
-            echo "Backend build veya deploy başarısız!"
+            echo "Backend deploy başarısız!"
         }
     }
 }
