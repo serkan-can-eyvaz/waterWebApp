@@ -25,10 +25,7 @@ const CompanyGrid = () => {
     }
   };
 
-  // Toplam 228 hücre için (12x19 grid)
-  const totalCells = 228;
-  const companyCells = companies.length;
-  const emptyCells = totalCells - companyCells;
+  // Sadece gerçek firmalar için kart oluştur
 
   if (loading) {
     return (
@@ -68,19 +65,9 @@ const CompanyGrid = () => {
                 </span>
               </div>
             </div>
-            <div className="company-info">
-              <span className="company-name">{company.companyName || 'Firma'}</span>
-              <span className="order-quantity">{company.orderQuantity || 0} adet</span>
-            </div>
           </div>
         ))}
         
-        {/* Boş hücreler */}
-        {Array.from({ length: emptyCells }, (_, index) => (
-          <div key={`empty-${index}`} className="empty-cell">
-            <span>LOGO</span>
-          </div>
-        ))}
       </div>
     </div>
   );
