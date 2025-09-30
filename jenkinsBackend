@@ -51,7 +51,8 @@ pipeline {
 
         stage('Build & Deploy with Docker Compose') {
             steps {
-                dir("${DEPLOY_DIR}") {
+                dir('/home/waterWebApp/backend_build/waterWebApp-backend') { 
+                    // docker-compose.yml burada olacak şekilde
                     script {
                         sh "docker compose down"
                         sh "docker compose build"
