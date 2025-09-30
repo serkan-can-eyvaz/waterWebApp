@@ -25,5 +25,8 @@ public interface CompanyRepository extends JpaRepository<Company, String> {
     @Query("SELECT SUM(c.orderQuantity) FROM Company c WHERE c.isActive = true")
     Long sumActiveCompanyOrderQuantities();
     
+    @Query("SELECT COALESCE(SUM(c.orderQuantity), 0) FROM Company c WHERE c.isActive = true")
+    Long getTotalOrderQuantity();
+    
     boolean existsByTaxNumber(String taxNumber);
 }
