@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/statistics")
 public class StatisticsController {
 
-    @Autowired
     private StatisticsService statisticsService;
+
+    @Autowired
+    public void setStatisticsService(StatisticsService statisticsService) {
+        this.statisticsService = statisticsService;
+    }
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
