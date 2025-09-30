@@ -122,28 +122,34 @@ const SlideManagement = () => {
         {slides.map(slide => (
           <div key={slide.id} className="slide-card">
             <div className="slide-image">
-              <img src={`${slide.imageUrl}`} alt={slide.title} />
+              <img 
+                src={`${slide.imageUrl}`} 
+                alt={slide.title || 'Slide'} 
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
             </div>
             <div className="slide-info">
-              <h4>{slide.title}</h4>
-              <p className="slide-description">{slide.description}</p>
+              <h4>{slide.title || 'Slide Başlığı'}</h4>
+              <p className="slide-description">{slide.description || 'Açıklama yok'}</p>
               <div className="slide-meta">
                 <span className="company-info">
                   🏢 Slide
                 </span>
-                <span className="display-order">Sıra: {slide.displayOrder}</span>
+                <span className="display-order">Sıra: {slide.displayOrder || 1}</span>
                 <span className={`status ${slide.isActive ? 'active' : 'inactive'}`}>
                   {slide.isActive ? '✅ Aktif' : '❌ Pasif'}
                 </span>
               </div>
-              <div className="slide-actions">
-                <button 
-                  className="delete-btn"
-                  onClick={() => deleteSlide(slide.id)}
-                >
-                  🗑️ Sil
-                </button>
-              </div>
+            </div>
+            <div className="slide-actions">
+              <button 
+                className="delete-btn"
+                onClick={() => deleteSlide(slide.id)}
+              >
+                🗑️ Sil
+              </button>
             </div>
           </div>
         ))}
