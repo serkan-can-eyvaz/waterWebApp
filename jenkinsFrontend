@@ -38,8 +38,10 @@ pipeline {
             steps {
                 dir('front-end') {
                     sh '''
-                        mkdir -p /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
-                        cp -r build/* /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
+                        if [ ! -d "/var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb" ]; then
+                            mkdir -p /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb
+                        fi
+                        cp -r build/* /var/lib/jenkins/workspace/waterWebApp-Frontend/front-end/waterweb-build/waterweb/
                     '''
                     
                 }
