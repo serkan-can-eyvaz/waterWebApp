@@ -119,6 +119,42 @@ const SlideManagement = () => {
       )}
 
       <div className="slides-grid">
+        {/* Her zaman test slide göster */}
+        <div className="slide-card">
+          <div className="slide-image">
+            <div style={{
+              width: '100%',
+              height: '200px',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontSize: '18px'
+            }}>
+              Test Slide 1
+            </div>
+          </div>
+          <div className="slide-info">
+            <h4>Test Slide Başlığı</h4>
+            <p className="slide-description">Bu bir test slide'ıdır</p>
+            <div className="slide-meta">
+              <span className="company-info">🏢 Test Slide</span>
+              <span className="display-order">Sıra: 1</span>
+              <span className="status active">✅ Aktif</span>
+            </div>
+          </div>
+          <div className="slide-actions">
+            <button 
+              className="delete-btn"
+              onClick={() => alert('Test slide silindi!')}
+            >
+              🗑️ Sil
+            </button>
+          </div>
+        </div>
+
+        {/* Gerçek slide'lar varsa onları da göster */}
         {slides.map(slide => (
           <div key={slide.id} className="slide-card">
             <div className="slide-image">
@@ -134,9 +170,7 @@ const SlideManagement = () => {
               <h4>{slide.title || 'Slide Başlığı'}</h4>
               <p className="slide-description">{slide.description || 'Açıklama yok'}</p>
               <div className="slide-meta">
-                <span className="company-info">
-                  🏢 Slide
-                </span>
+                <span className="company-info">🏢 Slide</span>
                 <span className="display-order">Sıra: {slide.displayOrder || 1}</span>
                 <span className={`status ${slide.isActive ? 'active' : 'inactive'}`}>
                   {slide.isActive ? '✅ Aktif' : '❌ Pasif'}
@@ -155,11 +189,6 @@ const SlideManagement = () => {
         ))}
       </div>
 
-      {slides.length === 0 && (
-        <div className="no-slides">
-          <p>Henüz slide eklenmemiş.</p>
-        </div>
-      )}
     </div>
   );
 };
