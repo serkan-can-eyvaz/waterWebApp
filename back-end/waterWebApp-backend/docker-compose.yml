@@ -6,11 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: aquashare-backend
-    depends_on:
-      - waterweb-db   # Eğer DB zaten başka container'da varsa bunu kaldırabilirsin
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://<DB_CONTAINER_NAME>:5432/waterWeb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://hairdresser-db:5432/waterWeb
       SPRING_DATASOURCE_USERNAME: waterapp_user
       SPRING_DATASOURCE_PASSWORD: 2323
     ports:
       - "9095:8080"
+    restart: unless-stopped
