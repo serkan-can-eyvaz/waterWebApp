@@ -1,0 +1,204 @@
+# AquaShare Water Web App - Git Ignore File
+
+# ===========================================
+# FRONTEND (React)
+# ===========================================
+
+# Dependencies
+front-end/node_modules/
+front-end/npm-debug.log*
+front-end/yarn-debug.log*
+front-end/yarn-error.log*
+
+# Production build
+front-end/build/
+front-end/dist/
+
+# Environment variables
+front-end/.env
+front-end/.env.local
+front-end/.env.development.local
+front-end/.env.test.local
+front-end/.env.production.local
+
+# IDE files
+front-end/.vscode/
+front-end/.idea/
+front-end/*.swp
+front-end/*.swo
+
+# OS files
+front-end/.DS_Store
+front-end/Thumbs.db
+
+# Logs
+front-end/logs/
+front-end/*.log
+
+# ===========================================
+# BACKEND (Spring Boot)
+# ===========================================
+
+# Maven
+back-end/waterWebApp-backend/target/
+back-end/waterWebApp-backend/.mvn/wrapper/maven-wrapper.jar
+back-end/waterWebApp-backend/.mvn/wrapper/maven-wrapper.properties
+
+# IDE files
+back-end/waterWebApp-backend/.vscode/
+back-end/waterWebApp-backend/.idea/
+back-end/waterWebApp-backend/*.iml
+back-end/waterWebApp-backend/*.ipr
+back-end/waterWebApp-backend/*.iws
+back-end/waterWebApp-backend/.settings/
+back-end/waterWebApp-backend/.project
+back-end/waterWebApp-backend/.classpath
+
+# Spring Boot
+back-end/waterWebApp-backend/.spring-boot-devtools.properties
+
+# Logs
+back-end/waterWebApp-backend/logs/
+back-end/waterWebApp-backend/*.log
+
+# Environment variables
+back-end/waterWebApp-backend/.env
+
+# ===========================================
+# DATABASE
+# ===========================================
+
+# PostgreSQL data
+back-end/waterWebApp-backend/data/
+back-end/waterWebApp-backend/postgres-data/
+
+# SQL dumps
+*.sql
+!back-end/waterWebApp-backend/schema.sql
+
+# ===========================================
+# UPLOADED FILES
+# ===========================================
+
+# User uploaded files (keep structure but ignore content)
+back-end/waterWebApp-backend/uploads/slides/*
+!back-end/waterWebApp-backend/uploads/slides/.gitkeep
+back-end/waterWebApp-backend/uploads/logos/*
+!back-end/waterWebApp-backend/uploads/logos/.gitkeep
+
+# ===========================================
+# DOCKER
+# ===========================================
+
+# Docker volumes
+postgres_data/
+aquashare_postgres_data/
+
+# Docker ignore (already exists)
+back-end/waterWebApp-backend/.dockerignore
+
+# ===========================================
+# JENKINS
+# ===========================================
+
+# Jenkins files
+jenkinsFrontend
+jenkinsBackend
+jenkins/
+.jenkins/
+
+# ===========================================
+# GENERAL
+# ===========================================
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Log files
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Package lock files (choose one)
+# package-lock.json
+# yarn.lock
+
+# ===========================================
+# DOCUMENTATION
+# ===========================================
+
+# Keep important docs, ignore generated ones
+*.pdf
+!README.pdf
+docs/generated/
+
+# ===========================================
+# SECURITY
+# ===========================================
+
+# Keys and certificates
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+keystore.*
+
+# Configuration files with sensitive data
+config/secrets/
+secrets/
+
+# ===========================================
+# TESTING
+# ===========================================
+
+# Test reports
+test-results/
+coverage/
+*.lcov
+
+# ===========================================
+# MISC
+# ===========================================
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Large files that shouldn't be in repo
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.mkv
+
+# Backup files
+*.orig
+*.rej

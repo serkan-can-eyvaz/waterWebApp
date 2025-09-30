@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  waterweb-db:
+    image: postgres:15
+    container_name: aquashare-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2323
+      POSTGRES_DB: waterWeb
+    ports:
+      - "5432:5432"
+    volumes:
+      - aquashare_postgres_data:/var/lib/postgresql/data
+
+  waterweb-backend:
+    build: .
+    container_name: aquashare-backend
+    depends_on:
+      - waterweb-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://waterweb-db:5432/waterWeb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 2323
+    ports:
+      - "8080:8080"
+
+  waterweb-nginx:
+    image: nginx:alpine
+    container_name: aquashare-nginx
+    depends_on:
+      - waterweb-backend
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ../front-end/build:/usr/share/nginx/html
+    ports:
+      - "80:80"
+      - "443:443"
+
+volumes:
+  aquashare_postgres_data:
+
