@@ -17,8 +17,12 @@ import java.util.HashMap;
 @RequestMapping("/api/slides")
 public class SlideController {
     
-    @Autowired
     private SlideService slideService;
+    
+    @Autowired
+    public void setSlideService(SlideService slideService) {
+        this.slideService = slideService;
+    }
     
     @PostMapping("/upload")
     public ResponseEntity<?> uploadSlide(@RequestParam("file") MultipartFile file) {

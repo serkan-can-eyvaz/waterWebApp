@@ -16,8 +16,12 @@ import java.util.HashMap;
 @RequestMapping("/api/companies")
 public class CompanyController {
     
-    @Autowired
     private CompanyService companyService;
+    
+    @Autowired
+    public void setCompanyService(CompanyService companyService) {
+        this.companyService = companyService;
+    }
     
     @PostMapping
     public ResponseEntity<?> createCompany(@Valid @RequestBody CompanyDto companyDto) {
