@@ -17,8 +17,9 @@ const CompanyGrid = () => {
       const response = await fetch('/api/companies/all');
       if (response.ok) {
         const data = await response.json();
-        // Adet miktarına göre büyükten küçüğe sırala
-        const sortedCompanies = data.sort((a, b) => (b.orderQuantity || 0) - (a.orderQuantity || 0));
+        // Sadece aktif firmalar ve adet miktarına göre büyükten küçüğe sırala
+        const activeCompanies = (data || []).filter(c => c && c.isActive === true);
+        const sortedCompanies = activeCompanies.sort((a, b) => (b.orderQuantity || 0) - (a.orderQuantity || 0));
         setCompanies(sortedCompanies);
       } else {
         setError('Firma verileri yüklenemedi');

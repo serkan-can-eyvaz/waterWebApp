@@ -15,7 +15,9 @@ const CompanyLogos = () => {
       const response = await fetch('/api/companies/all');
       if (response.ok) {
         const data = await response.json();
-        setCompanies(data);
+        // Sadece aktif firmaları göster
+        const active = (data || []).filter(c => c && c.isActive === true);
+        setCompanies(active);
       }
       setLoading(false);
     } catch (error) {
@@ -25,7 +27,7 @@ const CompanyLogos = () => {
   };
 
   const logosPerPage = 10; // 5x2 grid - 2 satır, her satırda 5 logo
-  const totalPages = Math.ceil(companies.length / logosPerPage);
+  const totalPages = Math.ceil(companies.length / logosPerPage) || 1;
 
   const nextPage = () => {
     setCurrentIndex((prev) => (prev + 1) % totalPages);
