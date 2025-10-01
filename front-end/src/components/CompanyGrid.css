@@ -17,24 +17,27 @@
 .companies-grid {
   display: grid !important;
   grid-template-columns: repeat(8, 1fr) !important;
-  gap: 5px !important;
+  gap: 10px !important;
   width: 100% !important;
   max-width: none !important;
   margin: 0 !important;
   padding: 0 !important;
+  grid-auto-rows: auto !important;
 }
 
 .company-cell {
   width: 100% !important;
   height: 120px !important;
-  background: transparent !important;
+  background: white !important;
   border-radius: 8px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 5px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #e0e0e0 !important;
 }
 
 .company-logo-container {
@@ -67,25 +70,25 @@
 }
 
 /* RESPONSIVE - KUCUK EKRANLARDA SUTUN SAYISINI AZALT */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .companies-grid {
     grid-template-columns: repeat(6, 1fr) !important;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .companies-grid {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .companies-grid {
     grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .companies-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }

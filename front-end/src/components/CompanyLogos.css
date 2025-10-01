@@ -53,10 +53,12 @@
 
 .logos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 20px;
   width: 100%;
   max-width: 100%;
+  min-height: 440px; /* 2 satır için yeterli yükseklik */
 }
 
 .logo-item {
@@ -140,6 +142,14 @@
   background-color: #95a5a6;
 }
 
+@media (max-width: 1200px) {
+  .logos-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
 @media (max-width: 768px) {
   .company-logos {
     padding: 40px 15px;
@@ -151,8 +161,8 @@
   }
   
   .logos-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 15px;
   }
   
@@ -169,8 +179,8 @@
 
 @media (max-width: 480px) {
   .logos-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 10px;
   }
   

@@ -24,7 +24,7 @@ const CompanyLogos = () => {
     }
   };
 
-  const logosPerPage = 6; // 3x2 grid
+  const logosPerPage = 10; // 5x2 grid - 2 satır, her satırda 5 logo
   const totalPages = Math.ceil(companies.length / logosPerPage);
 
   const nextPage = () => {

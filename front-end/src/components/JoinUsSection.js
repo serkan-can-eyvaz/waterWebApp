@@ -56,10 +56,33 @@ const JoinUsSection = () => {
     setError('');
     setSuccess(false);
 
-    // Sipariş adeti kontrolü
-    const orderQuantity = parseInt(formData.orderQuantity);
-    if (orderQuantity < 100) {
+    // Zorunlu alanları kontrol et
+    if (!formData.companyName.trim()) {
+      setError('Firma ünvanı zorunludur.');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.taxNumber.trim()) {
+      setError('Vergi numarası zorunludur.');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.address.trim()) {
+      setError('Firma adresi zorunludur.');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.orderQuantity || parseInt(formData.orderQuantity) < 100) {
       setError('Minimum 100 adet sipariş verebilirsiniz. Lütfen sipariş adetini 100 veya üzeri olarak girin.');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.logoFile) {
+      setError('Firma logosu zorunludur.');
       setLoading(false);
       return;
     }
@@ -249,7 +272,7 @@ const JoinUsSection = () => {
               </div>
 
               <div className="info-item logo-upload">
-                <label htmlFor="logoFile">FİRMA LOGOSU</label>
+                <label htmlFor="logoFile">FİRMA LOGOSU *</label>
                 <div className="file-upload-container">
                   <input
                     type="file"
@@ -258,11 +281,12 @@ const JoinUsSection = () => {
                     onChange={handleFileChange}
                     accept=".jpg,.jpeg,.png,.svg"
                     className="file-input"
+                    required
                   />
                   <label htmlFor="logoFile" className="file-upload-label">
                     {formData.logoFile ? formData.logoFile.name : 'Logo Seç (JPG, PNG, SVG)'}
                   </label>
-                  <small className="file-info">Maksimum 5MB, JPG/PNG/SVG formatları</small>
+                  <small className="file-info">Maksimum 5MB, JPG/PNG/SVG formatları (Zorunlu)</small>
                 </div>
               </div>
             </div>
