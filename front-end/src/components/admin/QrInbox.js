@@ -75,15 +75,12 @@ const QrInbox = () => {
       return date.toISOString().replace('T', ' ').substring(0, 19);
     };
 
-    // Excel uyumlu field escaping - sadece gerekli alanları tırnak içine al
+    // Excel uyumlu field escaping - TÜM alanları tırnak içine al
     const escapeField = (field) => {
-      if (field === null || field === undefined) return '';
+      if (field === null || field === undefined) return '""';
       const str = String(field);
-      // Virgül, tırnak, yeni satır içeren alanları tırnak içine al
-      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
-        return `"${str.replace(/"/g, '""')}"`;
-      }
-      return str;
+      // Tüm alanları tırnak içine al ve iç tırnakları escape et
+      return `"${str.replace(/"/g, '""')}"`;
     };
 
     // Header satırı - her sütun ayrı
@@ -135,14 +132,17 @@ const QrInbox = () => {
     // Tüm satırları birleştir
     const allRows = [headerRow, ...dataRows];
     
-    // Her satırı virgülle ayır, her satırı yeni satırla ayır
-    const csv = allRows.map(row => row.join(',')).join('\r\n');
+    // Her satırı semicolon ile ayır (Excel Türkiye ayarları için)
+    const csv = allRows.map(row => row.join(';')).join('\r\n');
     
     console.log('Final CSV:', csv);
     
-    // UTF-8 BOM ile Excel uyumlu encoding
-    const blob = new Blob(["\uFEFF" + csv], { 
-      type: 'text/csv;charset=utf-8;' 
+    // Excel'in kesinlikle tanıyacağı format
+    const csvContent = "\uFEFF" + csv;
+    
+    // Excel uyumlu MIME type
+    const blob = new Blob([csvContent], { 
+      type: 'application/csv;charset=utf-8;' 
     });
     
     const url = URL.createObjectURL(blob);
