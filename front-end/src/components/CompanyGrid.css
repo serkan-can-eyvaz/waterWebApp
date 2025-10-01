@@ -21,16 +21,16 @@
 
 .companies-grid {
   display: grid;
-  grid-template-columns: repeat(8, 140px);
-  gap: 8px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  justify-content: center;
 }
 
 .company-cell {
-  width: 140px;
-  height: 140px;
+  width: 200px;
+  height: 200px;
   background: white;
   border: none;
   border-radius: 8px;
@@ -106,30 +106,6 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .companies-grid {
-    grid-template-columns: repeat(6, 120px);
-    gap: 6px;
-  }
-  
-  .company-cell {
-    width: 120px;
-    height: 120px;
-  }
-}
-
-@media (max-width: 992px) {
-  .companies-grid {
-    grid-template-columns: repeat(5, 110px);
-    gap: 5px;
-  }
-  
-  .company-cell {
-    width: 110px;
-    height: 110px;
-  }
-}
-
 @media (max-width: 768px) {
   .grid-title {
     font-size: 2rem;
@@ -137,13 +113,12 @@
   }
   
   .companies-grid {
-    grid-template-columns: repeat(4, 100px);
-    gap: 4px;
+    gap: 15px;
   }
   
   .company-cell {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
   }
   
   .company-initial {
@@ -157,28 +132,15 @@
   }
   
   .companies-grid {
-    grid-template-columns: repeat(3, 80px);
-    gap: 3px;
+    gap: 10px;
   }
   
   .company-cell {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
   }
   
   .company-initial {
     font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .companies-grid {
-    grid-template-columns: repeat(2, 70px);
-    gap: 2px;
-  }
-  
-  .company-cell {
-    width: 70px;
-    height: 70px;
   }
 }
