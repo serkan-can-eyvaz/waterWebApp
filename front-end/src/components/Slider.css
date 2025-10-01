@@ -1,8 +1,9 @@
 .slider-section {
   padding: 20px 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   position: relative;
   overflow: hidden;
+  margin-top: 20px;
 }
 
 .slider-section::before {
@@ -12,7 +13,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="water-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="50" r="2.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="90" r="1.8" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23water-pattern)"/></svg>');
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="water-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(0,0,0,0.05)"/><circle cx="75" cy="75" r="1.5" fill="rgba(0,0,0,0.05)"/><circle cx="50" cy="10" r="1" fill="rgba(0,0,0,0.05)"/><circle cx="90" cy="50" r="2.5" fill="rgba(0,0,0,0.05)"/><circle cx="10" cy="90" r="1.8" fill="rgba(0,0,0,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23water-pattern)"/></svg>');
   animation: float 20s ease-in-out infinite;
 }
 
@@ -144,21 +145,22 @@
 }
 
 .slider-loading, .slider-empty {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   border-radius: 20px;
   padding: 80px 40px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
   font-size: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid white;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #667eea;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
