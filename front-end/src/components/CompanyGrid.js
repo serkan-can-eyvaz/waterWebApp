@@ -45,7 +45,7 @@ const CompanyGrid = () => {
       <div className="companies-grid">
         {/* Firmalar - adet miktarına göre sıralı */}
         {companies.map((company, index) => (
-          <div key={company.id} className="company-cell" data-order={index + 1}>
+          <div key={company.taxNumber} className="company-cell" data-order={index + 1}>
             <div className="company-logo-container">
               {company.logoUrl ? (
                 <img 
