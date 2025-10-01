@@ -42,7 +42,7 @@
 }
 
 .title-line {
-  display: block !important;
+  display: inline-block !important;
   font-size: clamp(1.8rem, 5vw, 3.5rem) !important;
   color: #ffffff !important;
   margin: 0 !important;
@@ -53,6 +53,7 @@
   opacity: 0 !important;
   transform: translateY(50px) !important;
   line-height: 1 !important;
+  white-space: nowrap !important;
 }
 
 .title-line:first-child {
