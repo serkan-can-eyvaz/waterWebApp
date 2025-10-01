@@ -8,6 +8,7 @@ const SlideManagement = () => {
   const [formData, setFormData] = useState({
     imageFile: null
   });
+  const [editSlide, setEditSlide] = useState(null);
 
   useEffect(() => {
     fetchSlides();
@@ -89,6 +90,43 @@ const SlideManagement = () => {
     }
   };
 
+  const openEdit = (slide) => {
+    setEditSlide({
+      id: slide.id,
+      title: slide.title || '',
+      description: slide.description || '',
+      displayOrder: slide.displayOrder || 0,
+      isActive: slide.isActive === true
+    });
+  };
+
+  const submitEdit = async (e) => {
+    e.preventDefault();
+    if (!editSlide) return;
+    try {
+      const response = await fetch(`/api/slides/${editSlide.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: editSlide.title,
+          description: editSlide.description,
+          displayOrder: Number(editSlide.displayOrder) || 0,
+          imageUrl: slides.find(s=>s.id===editSlide.id)?.imageUrl,
+          isActive: !!editSlide.isActive
+        })
+      });
+      if (response.ok) {
+        setEditSlide(null);
+        fetchSlides();
+        alert('Slide güncellendi');
+      } else {
+        throw new Error('Güncelleme başarısız');
+      }
+    } catch (err) {
+      alert('Hata: ' + err.message);
+    }
+  };
+
   return (
     <div className="slide-management">
       <div className="slide-header">
@@ -123,67 +161,81 @@ const SlideManagement = () => {
         </div>
       )}
 
-      <div className="slides-grid">
-        {/* Test Slide - Her zaman görünsün */}
-        <div className="slide-card">
-          <div className="slide-image">
-            <div className="test-slide-placeholder">
-              <span>🎨 Test Slide</span>
+      <div className="slides-table-wrapper">
+        <table className="slides-table">
+          <thead>
+            <tr>
+              <th>Görsel</th>
+              <th>Başlık</th>
+              <th>Açıklama</th>
+              <th>Sıra</th>
+              <th>Durum</th>
+              <th>Aksiyonlar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {slides.map(slide => (
+              <tr key={slide.id}>
+                <td>
+                  <div className="slide-thumb">
+                    <img src={`${slide.imageUrl}`} alt={slide.title || 'Slide'} onError={(e)=>{e.target.style.display='none';}} />
+                  </div>
+                </td>
+                <td className="title-cell">{slide.title || 'Slide Başlığı'}</td>
+                <td className="desc-cell">{slide.description || 'Açıklama yok'}</td>
+                <td className="order-cell">{slide.displayOrder || 0}</td>
+                <td>
+                  <span className={`status-badge ${slide.isActive ? 'active' : 'inactive'}`}>
+                    {slide.isActive ? 'Aktif' : 'Pasif'}
+                  </span>
+                </td>
+                <td className="actions-cell">
+                  <button className="view-btn" onClick={() => openEdit(slide)}>✏️ Güncelle</button>
+                  <button className="delete-btn" onClick={() => deleteSlide(slide.id)}>🗑️ Sil</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {editSlide && (
+        <div className="modal-overlay" onClick={() => setEditSlide(null)}>
+          <div className="modal-content" onClick={(e)=>e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Slide Düzenle</h3>
+              <button className="close-modal" onClick={() => setEditSlide(null)}>❌</button>
             </div>
-          </div>
-          <div className="slide-info">
-            <h4>Test Slide Başlığı</h4>
-            <p className="slide-description">Bu bir test slide'ıdır</p>
-            <div className="slide-meta">
-              <span className="company-info">🏢 Test Slide</span>
-              <span className="display-order">Sıra: 1</span>
-              <span className="status active">✅ Aktif</span>
-            </div>
-          </div>
-          <div className="slide-actions">
-            <button 
-              className="delete-btn"
-              onClick={() => alert('Test slide silindi!')}
-            >
-              🗑️ Sil
-            </button>
+            <form onSubmit={submitEdit} className="edit-form">
+              <div className="form-row">
+                <label>Başlık</label>
+                <input value={editSlide.title} onChange={(e)=>setEditSlide({...editSlide,title:e.target.value})} />
+              </div>
+              <div className="form-row">
+                <label>Açıklama</label>
+                <textarea rows="3" value={editSlide.description} onChange={(e)=>setEditSlide({...editSlide,description:e.target.value})} />
+              </div>
+              <div className="form-row-inline">
+                <div>
+                  <label>Sıra</label>
+                  <input type="number" value={editSlide.displayOrder} onChange={(e)=>setEditSlide({...editSlide,displayOrder:e.target.value})} />
+                </div>
+                <div className="switch">
+                  <label>Durum</label>
+                  <select value={editSlide.isActive ? '1':'0'} onChange={(e)=>setEditSlide({...editSlide,isActive:e.target.value==='1'})}>
+                    <option value="1">Aktif</option>
+                    <option value="0">Pasif</option>
+                  </select>
+                </div>
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="delete-btn" onClick={()=>setEditSlide(null)}>İptal</button>
+                <button type="submit" className="submit-btn">Kaydet</button>
+              </div>
+            </form>
           </div>
         </div>
-
-        {/* Gerçek Slide'lar */}
-        {slides.map(slide => (
-          <div key={slide.id} className="slide-card">
-            <div className="slide-image">
-              <img 
-                src={`${slide.imageUrl}`} 
-                alt={slide.title || 'Slide'} 
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
-            </div>
-            <div className="slide-info">
-              <h4>{slide.title || 'Slide Başlığı'}</h4>
-              <p className="slide-description">{slide.description || 'Açıklama yok'}</p>
-              <div className="slide-meta">
-                <span className="company-info">🏢 Slide</span>
-                <span className="display-order">Sıra: {slide.displayOrder || 1}</span>
-                <span className={`status ${slide.isActive ? 'active' : 'inactive'}`}>
-                  {slide.isActive ? '✅ Aktif' : '❌ Pasif'}
-                </span>
-              </div>
-            </div>
-            <div className="slide-actions">
-              <button 
-                className="delete-btn"
-                onClick={() => deleteSlide(slide.id)}
-              >
-                🗑️ Sil
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      )}
     </div>
   );
 };

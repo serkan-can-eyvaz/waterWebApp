@@ -122,12 +122,21 @@
   cursor: not-allowed;
 }
 
-.slides-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-}
+/* Tablo görünümü */
+.slides-table-wrapper { width: 100%; overflow-x: auto; margin-top: 20px; }
+.slides-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+.slides-table thead th { text-align: left; padding: 10px 14px; color: rgba(255,255,255,0.9); }
+.slides-table tbody tr { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); }
+.slides-table tbody td { padding: 12px 14px; color: #fff; vertical-align: middle; }
+.slide-thumb { width: 120px; height: 70px; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; }
+.slide-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.title-cell { font-weight: 600; max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.desc-cell { max-width: 420px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.order-cell { width: 80px; }
+.actions-cell { display: flex; gap: 8px; }
+.status-badge { padding: 5px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.status-badge.active { background: rgba(76,175,80,0.3); color: #4CAF50; }
+.status-badge.inactive { background: rgba(244,67,54,0.3); color: #f44336; }
 
 .slide-card {
   background: rgba(255, 255, 255, 0.1);
@@ -228,14 +237,17 @@
 }
 
 /* SİLME BUTONU - KESINLIKLE GÖRÜNECEK */
-.slide-actions {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
-  margin-top: auto;
-}
+/* Modal (CompanyManagement ile uyumlu) */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index: 1000; padding: 20px; }
+.modal-content { background: linear-gradient(135deg,#667eea 0%, #764ba2 100%); border-radius: 16px; padding: 24px; max-width: 600px; width: 100%; }
+.modal-header { display:flex; align-items:center; justify-content: space-between; margin-bottom: 16px; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 10px; }
+.modal-header h3 { color:#fff; margin:0; }
+.close-modal { background: rgba(244,67,54,0.3); color:#fff; border:none; width:32px; height:32px; border-radius:50%; cursor:pointer; }
+.edit-form .form-row, .edit-form .form-row-inline { margin-bottom: 14px; }
+.edit-form label { color: rgba(255,255,255,0.9); font-size: 13px; display:block; margin-bottom:6px; }
+.edit-form input, .edit-form textarea, .edit-form select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #fff; }
+.form-row-inline { display:flex; gap: 12px; }
+.modal-actions { display:flex; gap:10px; justify-content:flex-end; }
 
 .delete-btn {
   background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%) !important;
