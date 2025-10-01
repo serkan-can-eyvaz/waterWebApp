@@ -29,9 +29,17 @@ const QrInbox = () => {
       
       console.log('QR Data:', qr);
       console.log('Subscriptions Data:', subsJson);
+      console.log('Subscriptions count:', subsJson.length);
+      console.log('First subscription:', subsJson[0]);
+      console.log('Subscriptions count:', subsJson.length);
       
       setCompany(qr);
       setSubs(Array.isArray(subsJson) ? subsJson : []);
+      
+      // Eğer subscription verisi yoksa uyarı ver
+      if (!Array.isArray(subsJson) || subsJson.length === 0) {
+        console.warn('No subscription data found for tax number:', taxNumber);
+      }
     } catch (e) {
       console.error('Search error:', e);
     } finally {
@@ -65,6 +73,7 @@ const QrInbox = () => {
     console.log('Export CSV - subs length:', displaySubs.length);
     console.log('Export CSV - subs (original):', subs);
     console.log('Export CSV - subs length (original):', subs.length);
+    console.log('Export CSV - company:', company);
     
     // Excel uyumlu tarih formatı
     const formatDateForExcel = (dateString) => {
@@ -112,9 +121,9 @@ const QrInbox = () => {
           escapeField(taxNumber || '')
         ];
       });
-    } else if (company) {
-      // Sadece firma bilgisi var, subscription yok
-      console.log('No subscriptions found, using company info:', company);
+    } else {
+      // Hiç subscription verisi yoksa, sadece vergi numarası ile boş satır yaz
+      console.log('No subscription data found for tax number:', taxNumber);
       dataRows = [[
         escapeField(''),
         escapeField(''),
@@ -122,9 +131,6 @@ const QrInbox = () => {
         escapeField(''),
         escapeField(taxNumber || '')
       ]];
-    } else {
-      alert('Bu vergi numarasına ait kayıt bulunamadı. Lütfen başka bir vergi numarası deneyin.');
-      return;
     }
 
     console.log('Data rows:', dataRows);
