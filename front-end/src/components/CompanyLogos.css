@@ -53,28 +53,28 @@
 
 .logos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
   width: 100%;
   max-width: 100%;
+  min-height: 440px; /* 2 satır için yeterli yükseklik */
 }
 
 .logo-item {
-  width: 100%;
-  aspect-ratio: 1 / 1;
+  width: 200px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: white;
   border: none;
-  outline: none;
-  box-shadow: none;
   padding: 0;
 }
 
 .logo-placeholder {
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
   background: white;
   color: #333;
   display: flex;
@@ -82,9 +82,6 @@
   justify-content: center;
   font-weight: bold;
   font-size: 24px;
-  border: none;
-  outline: none;
-  box-shadow: none;
 }
 
 .logo-placeholder:hover {
@@ -92,14 +89,11 @@
 }
 
 .company-logo-img {
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   border-radius: 0;
   background: white;
-  border: none;
-  outline: none;
-  box-shadow: none;
 }
 
 .company-logo-img:hover {
@@ -149,7 +143,11 @@
 }
 
 @media (max-width: 1200px) {
-  .logos-grid { gap: 14px; }
+  .logos-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -162,7 +160,11 @@
     margin-bottom: 30px;
   }
   
-  .logos-grid { gap: 12px; }
+  .logos-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+  }
   
   .logo-placeholder {
     font-size: 12px;
@@ -176,7 +178,11 @@
 }
 
 @media (max-width: 480px) {
-  .logos-grid { gap: 10px; }
+  .logos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+  }
   
   .logo-placeholder {
     font-size: 11px;
