@@ -63,6 +63,8 @@ const QrInbox = () => {
     console.log('Export CSV - displaySubs:', displaySubs);
     console.log('Export CSV - taxNumber:', taxNumber);
     console.log('Export CSV - subs length:', displaySubs.length);
+    console.log('Export CSV - subs (original):', subs);
+    console.log('Export CSV - subs length (original):', subs.length);
     
     // Excel uyumlu tarih formatı
     const formatDateForExcel = (dateString) => {
@@ -91,7 +93,17 @@ const QrInbox = () => {
     ];
 
     // Data satırları - her bilgi ayrı hücrede
-    const dataRows = displaySubs.map(s => {
+    // Eğer displaySubs boşsa, orijinal subs verisini kullan
+    const dataToExport = displaySubs.length > 0 ? displaySubs : subs;
+    console.log('Data to export:', dataToExport);
+    
+    // Eğer hiç veri yoksa uyarı ver
+    if (dataToExport.length === 0) {
+      alert('Dışa aktarılacak veri bulunamadı! Lütfen önce arama yapın.');
+      return;
+    }
+    
+    const dataRows = dataToExport.map(s => {
       console.log('Processing subscription:', s);
       return [
         escapeField(s.fullName || ''),
