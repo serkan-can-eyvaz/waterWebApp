@@ -40,7 +40,7 @@
 
 .title-line {
   display: block;
-  font-size: clamp(2.2rem, 6vw, 5rem);
+  font-size: clamp(1.5rem, 4vw, 3rem);
   color: #ffffff;
   margin-bottom: 15px;
   letter-spacing: -3px;
@@ -91,11 +91,11 @@
 @media (max-width: 768px) {
   .hero {
     padding: 60px 20px;
-    min-height: 25vh;
+    min-height: 12vh;
   }
   
   .title-line {
-    font-size: clamp(2rem, 6vw, 4rem);
+    font-size: clamp(1.3rem, 4vw, 2.5rem);
     text-shadow: 2px 2px 0px #000000;
   }
 }
@@ -106,7 +106,7 @@
   }
   
   .title-line {
-    font-size: clamp(1.8rem, 8vw, 3rem);
+    font-size: clamp(1.2rem, 6vw, 2rem);
     text-shadow: 1px 1px 0px #000000;
     letter-spacing: -1px;
   }
