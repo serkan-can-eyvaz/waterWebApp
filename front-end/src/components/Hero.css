@@ -4,8 +4,8 @@
   animation: gradientShift 8s ease infinite !important;
   padding: 8px 20px !important;
   text-align: center !important;
-  min-height: 5vh !important;
-  max-height: 8vh !important;
+  min-height: 8vh !important;
+  max-height: 12vh !important;
   height: auto !important;
   display: flex !important;
   align-items: center !important;
@@ -43,7 +43,7 @@
 
 .title-line {
   display: block !important;
-  font-size: clamp(1.2rem, 3vw, 2rem) !important;
+  font-size: clamp(1.8rem, 5vw, 3.5rem) !important;
   color: #ffffff !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -95,7 +95,7 @@
 @media (max-width: 768px) {
   .hero {
     padding: 10px 20px;
-    min-height: 5vh;
+    min-height: 8vh;
   }
   
   .title-line {
@@ -107,7 +107,7 @@
 @media (max-width: 480px) {
   .hero {
     padding: 8px 15px;
-    min-height: 5vh;
+    min-height: 8vh;
   }
   
   .title-line {
