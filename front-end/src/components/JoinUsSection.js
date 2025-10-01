@@ -287,7 +287,7 @@ const JoinUsSection = () => {
             <div className="contact-info">
               <div className="reservation">
                 <span className="reservation-label">İletişim</span>
-                <a href="https://birdamlapaylas.com" className="website">www.buradaka.com</a>
+                <a href="https://birdamlapaylas.com" className="website">birdamlapaylas.com</a>
                 <span className="separator">/</span>
                 <a href="tel:+905333333333" className="phone">0 533 333 33 33</a>
               </div>
