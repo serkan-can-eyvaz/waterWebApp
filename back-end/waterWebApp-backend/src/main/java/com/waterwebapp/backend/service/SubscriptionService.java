@@ -37,6 +37,23 @@ public class SubscriptionService {
         out.setEmail(saved.getEmail());
         out.setPhone(saved.getPhone());
         out.setCompanyTaxNumber(dto.getCompanyTaxNumber());
+        out.setCreatedAt(saved.getCreatedAt());
+        return out;
+    }
+
+    public java.util.List<SubscriptionDto> listByCompanyTaxNumber(String taxNumber) {
+        java.util.List<Subscription> list = subscriptionRepository.findByCompany_TaxNumber(taxNumber);
+        java.util.List<SubscriptionDto> out = new java.util.ArrayList<>();
+        for (Subscription s : list) {
+            SubscriptionDto dto = new SubscriptionDto();
+            dto.setId(s.getId());
+            dto.setFullName(s.getFullName());
+            dto.setEmail(s.getEmail());
+            dto.setPhone(s.getPhone());
+            dto.setCompanyTaxNumber(taxNumber);
+            dto.setCreatedAt(s.getCreatedAt());
+            out.add(dto);
+        }
         return out;
     }
 }

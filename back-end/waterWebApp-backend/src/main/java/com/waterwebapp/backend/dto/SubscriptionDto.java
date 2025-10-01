@@ -6,6 +6,7 @@ public class SubscriptionDto {
     private String email;
     private String phone;
     private String companyTaxNumber;
+    private java.time.LocalDateTime createdAt;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -17,6 +18,8 @@ public class SubscriptionDto {
     public void setPhone(String phone) { this.phone = phone; }
     public String getCompanyTaxNumber() { return companyTaxNumber; }
     public void setCompanyTaxNumber(String companyTaxNumber) { this.companyTaxNumber = companyTaxNumber; }
+    public java.time.LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(java.time.LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
 
 

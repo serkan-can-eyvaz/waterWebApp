@@ -23,13 +23,25 @@ public class SubscriptionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<?>> getAll() {
-        return ResponseEntity.ok(subscriptionRepository.findAll());
+    public ResponseEntity<List<SubscriptionDto>> getAll() {
+        // küçük projede basitçe tümünü repo'dan alalım ve minimal DTO'ya çevirmeden döndürelim yerine service yazılabilir
+        return ResponseEntity.ok(
+            subscriptionRepository.findAll().stream().map(s -> {
+                SubscriptionDto dto = new SubscriptionDto();
+                dto.setId(s.getId());
+                dto.setFullName(s.getFullName());
+                dto.setEmail(s.getEmail());
+                dto.setPhone(s.getPhone());
+                dto.setCompanyTaxNumber(s.getCompany() != null ? s.getCompany().getTaxNumber() : null);
+                dto.setCreatedAt(s.getCreatedAt());
+                return dto;
+            }).toList()
+        );
     }
 
     @GetMapping("/company/{taxNumber}")
-    public ResponseEntity<List<?>> byCompany(@PathVariable String taxNumber) {
-        return ResponseEntity.ok(subscriptionRepository.findByCompany_TaxNumber(taxNumber));
+    public ResponseEntity<List<SubscriptionDto>> byCompany(@PathVariable String taxNumber) {
+        return ResponseEntity.ok(subscriptionService.listByCompanyTaxNumber(taxNumber));
     }
 }
 
