@@ -16,16 +16,16 @@
 
 .companies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 15px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  max-width: 1400px;
   margin: 0 auto;
   justify-content: center;
 }
 
 .company-cell {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -82,10 +82,22 @@
 }
 
 /* RESPONSIVE - KATILIMCILAR GIBI */
+@media (max-width: 1200px) {
+  .companies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+  }
+  
+  .company-cell {
+    width: 120px;
+    height: 120px;
+  }
+}
+
 @media (max-width: 768px) {
   .companies-grid {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
+    gap: 6px;
   }
   
   .company-cell {
@@ -97,7 +109,7 @@
 @media (max-width: 480px) {
   .companies-grid {
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 8px;
+    gap: 4px;
   }
   
   .company-cell {
