@@ -4,8 +4,8 @@
   animation: gradientShift 8s ease infinite !important;
   padding: 8px 20px !important;
   text-align: center !important;
-  min-height: 8vh !important;
-  max-height: 12vh !important;
+  min-height: 6vh !important;
+  max-height: 8vh !important;
   height: auto !important;
   display: flex !important;
   align-items: center !important;
@@ -43,7 +43,7 @@
 
 .title-line {
   display: inline-block !important;
-  font-size: clamp(1.2rem, 4vw, 2.5rem) !important;
+  font-size: clamp(0.9rem, 3vw, 1.8rem) !important;
   color: #ffffff !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -100,11 +100,11 @@
 @media (max-width: 768px) {
   .hero {
     padding: 10px 20px;
-    min-height: 8vh;
+    min-height: 6vh;
   }
   
   .title-line {
-    font-size: clamp(1.3rem, 4vw, 2.5rem);
+    font-size: clamp(0.8rem, 3vw, 1.5rem);
     text-shadow: 2px 2px 0px #000000;
   }
 }
@@ -112,11 +112,11 @@
 @media (max-width: 480px) {
   .hero {
     padding: 8px 15px;
-    min-height: 8vh;
+    min-height: 6vh;
   }
   
   .title-line {
-    font-size: clamp(1.2rem, 6vw, 2rem);
+    font-size: clamp(0.7rem, 4vw, 1.2rem);
     text-shadow: 1px 1px 0px #000000;
     letter-spacing: -1px;
   }
