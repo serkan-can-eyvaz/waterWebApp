@@ -10,7 +10,6 @@ const CompanyManagement = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [qrForCompany, setQrForCompany] = useState(null);
   const [qrDataUrl, setQrDataUrl] = useState('');
-  const [subscribeForm, setSubscribeForm] = useState({ fullName: '', email: '', phone: '' });
 
   useEffect(() => {
     fetchCompanies();
@@ -116,21 +115,7 @@ const CompanyManagement = () => {
     }
   };
 
-  const submitSubscription = async (e) => {
-    e.preventDefault();
-    try {
-      const body = { ...subscribeForm, companyTaxNumber: qrForCompany?.taxNumber };
-      const res = await fetch('/api/subscriptions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-      if (res.ok) {
-        alert('Kayıt alındı, fırsatlarda sizi bilgilendireceğiz.');
-        setSubscribeForm({ fullName: '', email: '', phone: '' });
-      } else {
-        throw new Error('Kayıt başarısız');
-      }
-    } catch (err) {
-      alert('Hata: ' + err.message);
-    }
-  };
+  // not: abonelik formu QR genel sayfasında yönetiliyor
 
   return (
     <div className="company-management">

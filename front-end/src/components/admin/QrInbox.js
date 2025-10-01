@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './CompanyManagement.css';
 
 const QrInbox = () => {
@@ -6,6 +6,9 @@ const QrInbox = () => {
   const [company, setCompany] = useState(null);
   const [subs, setSubs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
 
   const search = async () => {
     if (!taxNumber) return;
@@ -26,13 +29,56 @@ const QrInbox = () => {
     }
   };
 
+  const normalizeDate = (value) => {
+    if (!value) return null;
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? null : d;
+  };
+
+  const displaySubs = subs.filter(s => {
+    const text = `${s.fullName||''} ${s.email||''} ${s.phone||''}`.toLowerCase();
+    const matchText = searchText.trim() === '' || text.includes(searchText.toLowerCase());
+    if (!matchText) return false;
+    const from = normalizeDate(dateFrom);
+    const to = normalizeDate(dateTo);
+    if (!from && !to) return true;
+    const created = s.createdAt ? new Date(s.createdAt) : null;
+    if (!created) return false;
+    if (from && created < new Date(from.setHours(0,0,0,0))) return false;
+    if (to && created > new Date(to.setHours(23,59,59,999))) return false;
+    return true;
+  });
+
+  const exportCsv = () => {
+    const rows = [
+      ['Ad Soyad','E-posta','Telefon','Kayıt Zamanı','Vergi No']
+    ].concat(displaySubs.map(s => [
+      s.fullName||'', s.email||'', s.phone||'', s.createdAt||'', taxNumber
+    ]));
+    const csv = rows.map(r => r.map(field => {
+      const val = String(field).replace(/"/g,'""');
+      return `"${val}"`;
+    }).join(',')).join('\n');
+    const blob = new Blob(["\uFEFF"+csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `qr-kayitlari_${taxNumber||'tum'}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="company-management">
       <div className="company-header">
         <h2>QR Kayıtları</h2>
-        <div className="header-actions">
+        <div className="header-actions" style={{flexWrap:'wrap'}}>
           <input className="company-search-input" value={taxNumber} onChange={e=>setTaxNumber(e.target.value)} placeholder="Vergi No ile ara" />
+          <input className="company-search-input" value={searchText} onChange={e=>setSearchText(e.target.value)} placeholder="İsim/e‑posta/telefon ara" />
+          <input className="company-search-input" type="date" value={dateFrom} onChange={e=>setDateFrom(e.target.value)} />
+          <input className="company-search-input" type="date" value={dateTo} onChange={e=>setDateTo(e.target.value)} />
           <button className="stats-toggle-btn" onClick={search}>Ara</button>
+          <button className="view-btn" onClick={exportCsv}>CSV Dışa Aktar</button>
         </div>
       </div>
 
@@ -78,10 +124,10 @@ const QrInbox = () => {
             </tr>
           </thead>
           <tbody>
-            {subs.length === 0 && (
+            {displaySubs.length === 0 && (
               <tr><td colSpan="4" style={{color:'#fff', padding:14}}>Kayıt bulunamadı.</td></tr>
             )}
-            {subs.map(s => (
+            {displaySubs.map(s => (
               <tr key={s.id}>
                 <td className="company-name-cell">{s.fullName}</td>
                 <td>{s.email}</td>
