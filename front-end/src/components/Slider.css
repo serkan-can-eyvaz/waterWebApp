@@ -35,13 +35,13 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
-  height: 500px;
+  height: 1000px;
 }
 
 .slider-track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  height: 500px;
+  height: 1000px;
 }
 
 .slide-item {
