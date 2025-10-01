@@ -54,16 +54,14 @@
 .logos-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
   gap: 20px;
   width: 100%;
   max-width: 100%;
-  min-height: 440px; /* 2 satır için yeterli yükseklik */
 }
 
 .logo-item {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,8 +71,8 @@
 }
 
 .logo-placeholder {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   background: white;
   color: #333;
   display: flex;
@@ -89,8 +87,8 @@
 }
 
 .company-logo-img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   border-radius: 0;
   background: white;
@@ -145,7 +143,6 @@
 @media (max-width: 1200px) {
   .logos-grid {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
     gap: 15px;
   }
 }
@@ -160,11 +157,7 @@
     margin-bottom: 30px;
   }
   
-  .logos-grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 15px;
-  }
+  .logos-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   
   .logo-placeholder {
     font-size: 12px;
@@ -178,11 +171,7 @@
 }
 
 @media (max-width: 480px) {
-  .logos-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
-  }
+  .logos-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   
   .logo-placeholder {
     font-size: 11px;
