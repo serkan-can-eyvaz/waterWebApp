@@ -50,20 +50,48 @@ const QrInbox = () => {
   });
 
   const exportCsv = () => {
+    // Excel uyumlu tarih formatı
+    const formatDateForExcel = (dateString) => {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return '';
+      // Excel'in tanıyacağı format: YYYY-MM-DD HH:MM:SS
+      return date.toISOString().replace('T', ' ').substring(0, 19);
+    };
+
+    // Excel uyumlu field escaping
+    const escapeField = (field) => {
+      if (field === null || field === undefined) return '';
+      const str = String(field);
+      // Virgül, tırnak, yeni satır içeren alanları tırnak içine al
+      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+
     const rows = [
-      ['Ad Soyad','E-posta','Telefon','Kayıt Zamanı','Vergi No']
+      ['Ad Soyad', 'E-posta', 'Telefon', 'Kayıt Zamanı', 'Vergi No']
     ].concat(displaySubs.map(s => [
-      s.fullName||'', s.email||'', s.phone||'', s.createdAt||'', taxNumber
+      escapeField(s.fullName || ''),
+      escapeField(s.email || ''),
+      escapeField(s.phone || ''),
+      escapeField(formatDateForExcel(s.createdAt)),
+      escapeField(taxNumber)
     ]));
-    const csv = rows.map(r => r.map(field => {
-      const val = String(field).replace(/"/g,'""');
-      return `"${val}"`;
-    }).join(',')).join('\n');
-    const blob = new Blob(["\uFEFF"+csv], { type: 'text/csv;charset=utf-8;' });
+
+    // Excel uyumlu CSV formatı - her satır ayrı satırda
+    const csv = rows.map(row => row.join(',')).join('\r\n');
+    
+    // UTF-8 BOM ile Excel uyumlu encoding
+    const blob = new Blob(["\uFEFF" + csv], { 
+      type: 'text/csv;charset=utf-8;' 
+    });
+    
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `qr-kayitlari_${taxNumber||'tum'}.csv`;
+    a.download = `qr-kayitlari_${taxNumber || 'tum'}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
