@@ -43,7 +43,7 @@
 
 .title-line {
   display: inline-block !important;
-  font-size: clamp(1.8rem, 5vw, 3.5rem) !important;
+  font-size: clamp(1.2rem, 4vw, 2.5rem) !important;
   color: #ffffff !important;
   margin: 0 !important;
   padding: 0 !important;
