@@ -517,6 +517,11 @@
   .company-management {
     padding: 20px;
   }
+  .companies-table thead th, .companies-table tbody td { padding: 10px; font-size: 13px; }
+  .title-cell { max-width: 180px; }
+  .desc-cell, .address-cell { max-width: 220px; }
+  .actions-cell { flex-wrap: wrap; }
+  .actions-cell .toggle-btn, .actions-cell .delete-btn, .actions-cell .view-btn { flex: 1 1 100%; }
   
   .company-header {
     flex-direction: column;
