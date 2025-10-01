@@ -134,11 +134,53 @@
   background: rgba(244, 67, 54, 0.3) !important;
 }
 
-.companies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 25px;
+/* Liste/Tablo görünümü */
+.companies-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
 }
+
+.companies-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.companies-table thead th {
+  text-align: left;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 14px;
+}
+
+.companies-table tbody tr {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.companies-table tbody td {
+  padding: 14px;
+  color: white;
+  vertical-align: middle;
+}
+
+.table-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-logo img { width: 100%; height: 100%; object-fit: cover; }
+
+.company-name-cell { font-weight: 600; }
+.address-cell { max-width: 340px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.actions-cell { display: flex; gap: 8px; }
 
 .company-card {
   background: rgba(255, 255, 255, 0.1);
@@ -469,10 +511,8 @@
     grid-template-columns: 1fr;
   }
   
-  .companies-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
+/* mobilde kolonları daralt */
+.address-cell { max-width: 200px; }
   
   .section-header {
     flex-direction: column;

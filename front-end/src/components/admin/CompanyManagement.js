@@ -128,93 +128,87 @@ const CompanyManagement = () => {
           </div>
         </div>
 
-        <div className="companies-grid">
-          {companies.map(company => (
-            <div key={company.taxNumber} className="company-card">
-              <div className="company-header-card">
-                <div className="company-logo">
-                  {company.logoUrl ? (
-                    <img src={company.logoUrl.startsWith('/uploads/logos/') ? `/api/files/logos/${company.logoUrl.split('/').pop()}` : `/api/files/logos/${company.logoUrl}`} alt={company.companyName} />
-                  ) : (
-                    <div className="no-logo">🏢</div>
-                  )}
-                </div>
-                <div className="company-status">
-                  <span className={`status-badge ${company.isActive ? 'active' : 'inactive'}`}>
-                    {company.isActive ? '✅ Aktif' : '❌ Pasif'}
-                  </span>
-                </div>
-              </div>
+        <div className="companies-table-wrapper">
+          <table className="companies-table">
+            <thead>
+              <tr>
+                <th>Logo</th>
+                <th>Firma Adı</th>
+                <th>Vergi No</th>
+                <th>Vergi Dairesi</th>
+                <th>Sipariş Adeti</th>
+                <th>Adres</th>
+                <th>Durum</th>
+                <th>Sosyal</th>
+                <th>Aksiyonlar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {companies.map(company => (
+                <tr key={company.taxNumber}>
+                  <td>
+                    <div className="table-logo">
+                      {company.logoUrl ? (
+                        <img src={company.logoUrl.startsWith('/uploads/logos/') ? `/api/files/logos/${company.logoUrl.split('/').pop()}` : `/api/files/logos/${company.logoUrl}`} alt={company.companyName} />
+                      ) : (
+                        <div className="no-logo">🏢</div>
+                      )}
+                    </div>
+                  </td>
+                  <td className="company-name-cell">{company.companyName}</td>
+                  <td>{company.taxNumber}</td>
+                  <td>{company.taxOffice}</td>
+                  <td className="highlight">{company.orderQuantity}</td>
+                  <td className="address-cell">{company.address}</td>
+                  <td>
+                    <span className={`status-badge ${company.isActive ? 'active' : 'inactive'}`}>
+                      {company.isActive ? 'Aktif' : 'Pasif'}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="social-links inline">
+                      {company.instagramUrl && (
+                        <a href={company.instagramUrl} target="_blank" rel="noopener noreferrer" className="social-link instagram">IG</a>
+                      )}
+                      {company.twitterUrl && (
+                        <a href={company.twitterUrl} target="_blank" rel="noopener noreferrer" className="social-link twitter">X</a>
+                      )}
+                      {company.linkedinUrl && (
+                        <a href={company.linkedinUrl} target="_blank" rel="noopener noreferrer" className="social-link linkedin">In</a>
+                      )}
+                    </div>
+                  </td>
+                  <td className="actions-cell">
+                    <button 
+                      className={`toggle-btn ${company.isActive ? 'deactivate' : 'activate'}`}
+                      onClick={() => toggleCompanyStatus(company)}
+                    >
+                      {company.isActive ? '❌ Pasif Yap' : '✅ Aktif Yap'}
+                    </button>
+                    <button 
+                      className="delete-btn"
+                      onClick={() => deleteCompany(company.taxNumber)}
+                    >
+                      🗑️ Sil
+                    </button>
+                    <button 
+                      className="view-btn"
+                      onClick={() => setSelectedCompany(company)}
+                    >
+                      👁️ Detay
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-              <div className="company-info">
-                <h4 className="company-name">{company.companyName}</h4>
-                <div className="company-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Vergi No:</span>
-                    <span className="detail-value">{company.taxNumber}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Vergi Dairesi:</span>
-                    <span className="detail-value">{company.taxOffice}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Sipariş Adeti:</span>
-                    <span className="detail-value highlight">{company.orderQuantity}</span>
-                  </div>
-                  <div className="detail-item full-width">
-                    <span className="detail-label">Adres:</span>
-                    <span className="detail-value">{company.address}</span>
-                  </div>
-                </div>
-
-                <div className="social-links">
-                  {company.instagramUrl && (
-                    <a href={company.instagramUrl} target="_blank" rel="noopener noreferrer" className="social-link instagram">
-                      📷 Instagram
-                    </a>
-                  )}
-                  {company.twitterUrl && (
-                    <a href={company.twitterUrl} target="_blank" rel="noopener noreferrer" className="social-link twitter">
-                      🐦 Twitter
-                    </a>
-                  )}
-                  {company.linkedinUrl && (
-                    <a href={company.linkedinUrl} target="_blank" rel="noopener noreferrer" className="social-link linkedin">
-                      💼 LinkedIn
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              <div className="company-actions">
-                <button 
-                  className={`toggle-btn ${company.isActive ? 'deactivate' : 'activate'}`}
-                  onClick={() => toggleCompanyStatus(company)}
-                >
-                  {company.isActive ? '❌ Pasif Yap' : '✅ Aktif Yap'}
-                </button>
-                <button 
-                  className="delete-btn"
-                  onClick={() => deleteCompany(company.taxNumber)}
-                >
-                  🗑️ Sil
-                </button>
-                <button 
-                  className="view-btn"
-                  onClick={() => setSelectedCompany(company)}
-                >
-                  👁️ Detay
-                </button>
-              </div>
+          {companies.length === 0 && (
+            <div className="no-companies">
+              <p>Henüz firma kaydı bulunmuyor.</p>
             </div>
-          ))}
+          )}
         </div>
-
-        {companies.length === 0 && (
-          <div className="no-companies">
-            <p>Henüz firma kaydı bulunmuyor.</p>
-          </div>
-        )}
       </div>
 
       {selectedCompany && (
