@@ -62,8 +62,8 @@ public class CompanyService {
         Optional<Company> optionalCompany = companyRepository.findByTaxNumber(taxNumber);
         if (optionalCompany.isPresent()) {
             Company company = optionalCompany.get();
-            company.setIsActive(false);
-            companyRepository.save(company);
+            // Fiziksel silme: firma kaydını tamamen kaldır
+            companyRepository.delete(company);
         } else {
             throw new RuntimeException("Firma bulunamadı: " + taxNumber);
         }
