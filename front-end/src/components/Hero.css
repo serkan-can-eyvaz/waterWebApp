@@ -4,7 +4,7 @@
   animation: gradientShift 8s ease infinite;
   padding: 60px 20px;
   text-align: center;
-  min-height: 50vh;
+  min-height: 25vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +91,7 @@
 @media (max-width: 768px) {
   .hero {
     padding: 60px 20px;
-    min-height: 50vh;
+    min-height: 25vh;
   }
   
   .title-line {
