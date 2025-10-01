@@ -323,40 +323,11 @@ const CompanyManagement = () => {
               <h3>{qrForCompany.companyName} — QR Bilgileri</h3>
               <button className="close-modal" onClick={() => setQrForCompany(null)}>❌</button>
             </div>
-            <div className="modal-body">
-              <div style={{display:'flex', gap:20, alignItems:'flex-start', flexWrap:'wrap'}}>
-                <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-                  <img src={qrDataUrl} alt="QR" style={{width:220, height:220, background:'#fff', padding:10, borderRadius:12}} />
-                  <a className="qr-download" href={qrDataUrl} download={`qr_${qrForCompany.taxNumber}.png`}>⬇️ QR'ı indir</a>
-                </div>
-                <div>
-                  <p><strong>Adres:</strong> {qrForCompany.address}</p>
-                  {qrForCompany.instagramUrl && <p><strong>Instagram:</strong> <a href={qrForCompany.instagramUrl} target="_blank" rel="noreferrer">{qrForCompany.instagramUrl}</a></p>}
-                  {qrForCompany.twitterUrl && <p><strong>Twitter:</strong> <a href={qrForCompany.twitterUrl} target="_blank" rel="noreferrer">{qrForCompany.twitterUrl}</a></p>}
-                  {qrForCompany.linkedinUrl && <p><strong>LinkedIn:</strong> <a href={qrForCompany.linkedinUrl} target="_blank" rel="noreferrer">{qrForCompany.linkedinUrl}</a></p>}
-                </div>
+            <div className="modal-body" style={{display:'flex', justifyContent:'center'}}>
+              <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                <img src={qrDataUrl} alt="QR" style={{width:260, height:260, background:'#fff', padding:12, borderRadius:12}} />
+                <a className="qr-download" href={qrDataUrl} download={`qr_${qrForCompany.taxNumber}.png`}>⬇️ QR'ı indir</a>
               </div>
-              <hr style={{borderColor:'rgba(255,255,255,0.2)'}} />
-              <h4>Fırsatları yakalayın</h4>
-              <form onSubmit={submitSubscription} className="edit-form">
-                <div className="form-row">
-                  <label>Ad Soyad</label>
-                  <input value={subscribeForm.fullName} onChange={(e)=>setSubscribeForm({...subscribeForm, fullName:e.target.value})} required />
-                </div>
-                <div className="form-row-inline">
-                  <div>
-                    <label>E-posta</label>
-                    <input type="email" value={subscribeForm.email} onChange={(e)=>setSubscribeForm({...subscribeForm, email:e.target.value})} required />
-                  </div>
-                  <div>
-                    <label>Telefon</label>
-                    <input value={subscribeForm.phone} onChange={(e)=>setSubscribeForm({...subscribeForm, phone:e.target.value})} />
-                  </div>
-                </div>
-                <div className="modal-actions">
-                  <button type="submit" className="submit-btn">Fırsatları Yakalayın</button>
-                </div>
-              </form>
             </div>
           </div>
         </div>

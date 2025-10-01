@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SlideManagement from '../components/admin/SlideManagement';
 import CompanyManagement from '../components/admin/CompanyManagement';
 import './AdminPanel.css';
+import QrInbox from '../components/admin/QrInbox';
 
 const AdminPanel = ({ onExitAdmin }) => {
   const [activeTab, setActiveTab] = useState('slides');
@@ -53,11 +54,19 @@ const AdminPanel = ({ onExitAdmin }) => {
           <span className="nav-icon">🏢</span>
           Firma Yönetimi
         </button>
+        <button 
+          className={`admin-nav-btn ${activeTab === 'qr' ? 'active' : ''}`}
+          onClick={() => setActiveTab('qr')}
+        >
+          <span className="nav-icon">🧾</span>
+          QR Kayıtları
+        </button>
       </div>
 
       <div className="admin-content">
         {activeTab === 'slides' && <SlideManagement />}
         {activeTab === 'companies' && <CompanyManagement />}
+        {activeTab === 'qr' && <QrInbox />}
       </div>
     </div>
   );
