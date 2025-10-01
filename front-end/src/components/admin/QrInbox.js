@@ -59,29 +59,37 @@ const QrInbox = () => {
       return date.toISOString().replace('T', ' ').substring(0, 19);
     };
 
-    // Excel uyumlu field escaping
+    // Excel uyumlu field escaping - TÜM alanları tırnak içine al
     const escapeField = (field) => {
-      if (field === null || field === undefined) return '';
+      if (field === null || field === undefined) return '""';
       const str = String(field);
-      // Virgül, tırnak, yeni satır içeren alanları tırnak içine al
-      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
-        return `"${str.replace(/"/g, '""')}"`;
-      }
-      return str;
+      // Tüm alanları tırnak içine al ve iç tırnakları escape et
+      return `"${str.replace(/"/g, '""')}"`;
     };
 
-    const rows = [
-      ['Ad Soyad', 'E-posta', 'Telefon', 'Kayıt Zamanı', 'Vergi No']
-    ].concat(displaySubs.map(s => [
+    // Header satırı - her sütun ayrı
+    const headerRow = [
+      'Ad Soyad',
+      'E-posta', 
+      'Telefon',
+      'Kayıt Zamanı',
+      'Vergi No'
+    ];
+
+    // Data satırları - her bilgi ayrı hücrede
+    const dataRows = displaySubs.map(s => [
       escapeField(s.fullName || ''),
       escapeField(s.email || ''),
       escapeField(s.phone || ''),
       escapeField(formatDateForExcel(s.createdAt)),
-      escapeField(taxNumber)
-    ]));
+      escapeField(taxNumber || '')
+    ]);
 
-    // Excel uyumlu CSV formatı - her satır ayrı satırda
-    const csv = rows.map(row => row.join(',')).join('\r\n');
+    // Tüm satırları birleştir
+    const allRows = [headerRow, ...dataRows];
+    
+    // Her satırı virgülle ayır, her satırı yeni satırla ayır
+    const csv = allRows.map(row => row.join(',')).join('\r\n');
     
     // UTF-8 BOM ile Excel uyumlu encoding
     const blob = new Blob(["\uFEFF" + csv], { 

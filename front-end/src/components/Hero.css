@@ -45,6 +45,7 @@
   display: inline-block !important;
   font-size: clamp(0.9rem, 3vw, 1.8rem) !important;
   color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   margin: 0 !important;
   padding: 0 !important;
   letter-spacing: -1px !important;
@@ -58,19 +59,15 @@
 
 .title-line:first-child {
   animation-delay: 0.2s;
-  background: linear-gradient(45deg, #ffffff, #E3F2FD, #BBDEFB);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .title-line {
   animation-delay: 0.2s;
-  background: linear-gradient(45deg, #ffffff, #E3F2FD, #BBDEFB);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
@@ -106,6 +103,7 @@
   .title-line {
     font-size: clamp(0.8rem, 3vw, 1.5rem);
     text-shadow: 2px 2px 0px #000000;
+    color: #ffffff !important;
   }
 }
 
@@ -119,5 +117,6 @@
     font-size: clamp(0.7rem, 4vw, 1.2rem);
     text-shadow: 1px 1px 0px #000000;
     letter-spacing: -1px;
+    color: #ffffff !important;
   }
 }
