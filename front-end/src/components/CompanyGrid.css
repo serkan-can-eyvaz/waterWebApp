@@ -16,8 +16,8 @@
 
 .companies-grid {
   display: grid;
-  grid-template-columns: repeat(8, 120px);
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
   max-width: 1200px;
   margin: 0 auto;
   justify-content: center;
@@ -33,6 +33,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .company-logo-container {
@@ -80,11 +81,11 @@
   color: #ff6b6b;
 }
 
-/* RESPONSIVE - KUCUK EKRANLARDA SUTUN SAYISINI AZALT */
-@media (max-width: 1200px) {
+/* RESPONSIVE - KATILIMCILAR GIBI */
+@media (max-width: 768px) {
   .companies-grid {
-    grid-template-columns: repeat(6, 100px);
-    gap: 6px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
   }
   
   .company-cell {
@@ -93,38 +94,14 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 480px) {
   .companies-grid {
-    grid-template-columns: repeat(4, 90px);
-    gap: 5px;
-  }
-  
-  .company-cell {
-    width: 90px;
-    height: 90px;
-  }
-}
-
-@media (max-width: 500px) {
-  .companies-grid {
-    grid-template-columns: repeat(3, 80px);
-    gap: 4px;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
   }
   
   .company-cell {
     width: 80px;
     height: 80px;
-  }
-}
-
-@media (max-width: 300px) {
-  .companies-grid {
-    grid-template-columns: repeat(2, 70px);
-    gap: 3px;
-  }
-  
-  .company-cell {
-    width: 70px;
-    height: 70px;
   }
 }
