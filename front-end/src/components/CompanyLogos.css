@@ -52,37 +52,34 @@
 }
 
 .logos-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
   width: 100%;
   max-width: 100%;
-  justify-content: flex-start;
 }
 
 .logo-item {
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border: none;
   padding: 0;
-  flex: 0 0 auto;
 }
 
 .logo-placeholder {
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
   background: white;
   color: #333;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 .logo-placeholder:hover {
@@ -90,10 +87,10 @@
 }
 
 .company-logo-img {
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 0;
   background: white;
 }
 
@@ -143,20 +140,6 @@
   background-color: #95a5a6;
 }
 
-@media (max-width: 1200px) {
-  .logo-item {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-@media (max-width: 992px) {
-  .logo-item {
-    width: 90px;
-    height: 90px;
-  }
-}
-
 @media (max-width: 768px) {
   .company-logos {
     padding: 40px 15px;
@@ -167,15 +150,37 @@
     margin-bottom: 30px;
   }
   
-  .logo-item {
-    width: 80px;
-    height: 80px;
+  .logos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .logo-placeholder {
+    font-size: 12px;
+  }
+  
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .logo-item {
-    width: 70px;
-    height: 70px;
+  .logos-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 10px;
+  }
+  
+  .logo-placeholder {
+    font-size: 11px;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
   }
 }
