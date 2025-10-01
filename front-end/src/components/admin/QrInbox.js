@@ -14,16 +14,26 @@ const QrInbox = () => {
     if (!taxNumber) return;
     setLoading(true);
     try {
+      console.log('Aranan vergi no:', taxNumber);
+      
       const [qrRes, subsRes] = await Promise.all([
         fetch(`/api/qr-info/${taxNumber}`),
         fetch(`/api/subscriptions/company/${taxNumber}`)
       ]);
+      
+      console.log('QR Response status:', qrRes.status);
+      console.log('Subscriptions Response status:', subsRes.status);
+      
       const qr = qrRes.ok ? await qrRes.json() : null;
       const subsJson = subsRes.ok ? await subsRes.json() : [];
+      
+      console.log('QR Data:', qr);
+      console.log('Subscriptions Data:', subsJson);
+      
       setCompany(qr);
       setSubs(Array.isArray(subsJson) ? subsJson : []);
     } catch (e) {
-      console.error(e);
+      console.error('Search error:', e);
     } finally {
       setLoading(false);
     }
@@ -50,6 +60,10 @@ const QrInbox = () => {
   });
 
   const exportCsv = () => {
+    console.log('Export CSV - displaySubs:', displaySubs);
+    console.log('Export CSV - taxNumber:', taxNumber);
+    console.log('Export CSV - subs length:', displaySubs.length);
+    
     // Excel uyumlu tarih formatı
     const formatDateForExcel = (dateString) => {
       if (!dateString) return '';
@@ -77,19 +91,26 @@ const QrInbox = () => {
     ];
 
     // Data satırları - her bilgi ayrı hücrede
-    const dataRows = displaySubs.map(s => [
-      escapeField(s.fullName || ''),
-      escapeField(s.email || ''),
-      escapeField(s.phone || ''),
-      escapeField(formatDateForExcel(s.createdAt)),
-      escapeField(taxNumber || '')
-    ]);
+    const dataRows = displaySubs.map(s => {
+      console.log('Processing subscription:', s);
+      return [
+        escapeField(s.fullName || ''),
+        escapeField(s.email || ''),
+        escapeField(s.phone || ''),
+        escapeField(formatDateForExcel(s.createdAt)),
+        escapeField(taxNumber || '')
+      ];
+    });
+
+    console.log('Data rows:', dataRows);
 
     // Tüm satırları birleştir
     const allRows = [headerRow, ...dataRows];
     
     // Her satırı virgülle ayır, her satırı yeni satırla ayır
     const csv = allRows.map(row => row.join(',')).join('\r\n');
+    
+    console.log('Final CSV:', csv);
     
     // UTF-8 BOM ile Excel uyumlu encoding
     const blob = new Blob(["\uFEFF" + csv], { 
