@@ -97,22 +97,35 @@ const QrInbox = () => {
     const dataToExport = displaySubs.length > 0 ? displaySubs : subs;
     console.log('Data to export:', dataToExport);
     
-    // Eğer hiç veri yoksa uyarı ver
-    if (dataToExport.length === 0) {
-      alert('Dışa aktarılacak veri bulunamadı! Lütfen önce arama yapın.');
+    // Eğer subscription verisi yoksa, firma bilgisini CSV'ye yaz
+    let dataRows = [];
+    
+    if (dataToExport.length > 0) {
+      // Subscription verileri var
+      dataRows = dataToExport.map(s => {
+        console.log('Processing subscription:', s);
+        return [
+          escapeField(s.fullName || ''),
+          escapeField(s.email || ''),
+          escapeField(s.phone || ''),
+          escapeField(formatDateForExcel(s.createdAt)),
+          escapeField(taxNumber || '')
+        ];
+      });
+    } else if (company) {
+      // Sadece firma bilgisi var, subscription yok
+      console.log('No subscriptions found, using company info:', company);
+      dataRows = [[
+        escapeField(''),
+        escapeField(''),
+        escapeField(''),
+        escapeField(''),
+        escapeField(taxNumber || '')
+      ]];
+    } else {
+      alert('Bu vergi numarasına ait kayıt bulunamadı. Lütfen başka bir vergi numarası deneyin.');
       return;
     }
-    
-    const dataRows = dataToExport.map(s => {
-      console.log('Processing subscription:', s);
-      return [
-        escapeField(s.fullName || ''),
-        escapeField(s.email || ''),
-        escapeField(s.phone || ''),
-        escapeField(formatDateForExcel(s.createdAt)),
-        escapeField(taxNumber || '')
-      ];
-    });
 
     console.log('Data rows:', dataRows);
 
