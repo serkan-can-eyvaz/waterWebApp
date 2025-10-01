@@ -75,12 +75,15 @@ const QrInbox = () => {
       return date.toISOString().replace('T', ' ').substring(0, 19);
     };
 
-    // Excel uyumlu field escaping - TÜM alanları tırnak içine al
+    // Excel uyumlu field escaping - sadece gerekli alanları tırnak içine al
     const escapeField = (field) => {
-      if (field === null || field === undefined) return '""';
+      if (field === null || field === undefined) return '';
       const str = String(field);
-      // Tüm alanları tırnak içine al ve iç tırnakları escape et
-      return `"${str.replace(/"/g, '""')}"`;
+      // Tab, tırnak, yeni satır içeren alanları tırnak içine al
+      if (str.includes('\t') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
     };
 
     // Header satırı - her sütun ayrı
@@ -132,20 +135,20 @@ const QrInbox = () => {
     // Tüm satırları birleştir
     const allRows = [headerRow, ...dataRows];
     
-    // Her satırı virgülle ayır, her satırı yeni satırla ayır
-    const csv = allRows.map(row => row.join(',')).join('\r\n');
+    // Her satırı tab ile ayır (Excel'in daha iyi tanıması için)
+    const csv = allRows.map(row => row.join('\t')).join('\r\n');
     
     console.log('Final CSV:', csv);
     
     // UTF-8 BOM ile Excel uyumlu encoding
     const blob = new Blob(["\uFEFF" + csv], { 
-      type: 'text/csv;charset=utf-8;' 
+      type: 'text/tab-separated-values;charset=utf-8;' 
     });
     
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `qr-kayitlari_${taxNumber || 'tum'}.csv`;
+    a.download = `qr-kayitlari_${taxNumber || 'tum'}.tsv`;
     a.click();
     URL.revokeObjectURL(url);
   };
