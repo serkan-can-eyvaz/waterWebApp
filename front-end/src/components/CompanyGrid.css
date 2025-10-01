@@ -20,8 +20,8 @@
 }
 
 .companies-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(8, 140px);
   gap: 8px;
   max-width: 1200px;
   margin: 0 auto;
@@ -40,7 +40,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .company-cell:hover {
@@ -109,6 +108,7 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
   .companies-grid {
+    grid-template-columns: repeat(6, 120px);
     gap: 6px;
   }
   
@@ -120,6 +120,7 @@
 
 @media (max-width: 992px) {
   .companies-grid {
+    grid-template-columns: repeat(5, 110px);
     gap: 5px;
   }
   
@@ -136,6 +137,7 @@
   }
   
   .companies-grid {
+    grid-template-columns: repeat(4, 100px);
     gap: 4px;
   }
   
@@ -155,6 +157,7 @@
   }
   
   .companies-grid {
+    grid-template-columns: repeat(3, 80px);
     gap: 3px;
   }
   
@@ -165,5 +168,17 @@
   
   .company-initial {
     font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .companies-grid {
+    grid-template-columns: repeat(2, 70px);
+    gap: 2px;
+  }
+  
+  .company-cell {
+    width: 70px;
+    height: 70px;
   }
 }
