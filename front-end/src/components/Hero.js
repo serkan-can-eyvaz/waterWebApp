@@ -6,8 +6,7 @@ const Hero = () => {
     <section className="hero">
       <div className="hero-content">
         <h1 className="hero-title">
-          <span className="title-line">Bir Yudum İyilik</span>
-          <span className="title-line">Hareketine Sende Katıl</span>
+          <span className="title-line">Bir Yudum İyilik Hareketine Sende Katıl</span>
         </h1>
       </div>
     </section>
