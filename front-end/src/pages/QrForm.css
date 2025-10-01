@@ -1,0 +1,61 @@
+.qr-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 0;
+}
+
+.qr-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.qr-title {
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.qr-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 20px;
+  color: #fff;
+}
+
+.qr-links a { color: #00E5FF; text-decoration: none; }
+.qr-links a:hover { text-decoration: underline; }
+
+.qr-form-title { color: #fff; text-align: center; margin: 24px 0 12px; }
+
+.qr-form {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.qr-form input {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.qr-submit {
+  background: linear-gradient(135deg, #00C853 0%, #00BFA5 100%);
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.qr-thanks { color: #fff; text-align: center; }
+
+

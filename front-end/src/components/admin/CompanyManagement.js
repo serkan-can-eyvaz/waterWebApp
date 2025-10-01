@@ -91,17 +91,10 @@ const CompanyManagement = () => {
   };
 
   const openQrForCompany = async (company) => {
-    const payload = {
-      companyName: company.companyName,
-      address: company.address,
-      instagramUrl: company.instagramUrl,
-      twitterUrl: company.twitterUrl,
-      linkedinUrl: company.linkedinUrl,
-      companyTaxNumber: company.taxNumber
-    };
-    const text = JSON.stringify({ ...payload, formUrl: `${window.location.origin}/qr/${company.taxNumber}` });
+    const formUrl = `${window.location.origin}/qr/${company.taxNumber}`;
     try {
-      const dataUrl = await QRCode.toDataURL(text, { width: 300, margin: 1 });
+      // QR kodu URL olacak şekilde üret (çoğu okuyucu sadece URL'i otomatik açar)
+      const dataUrl = await QRCode.toDataURL(formUrl, { width: 300, margin: 1 });
       setQrDataUrl(dataUrl);
       setQrForCompany(company);
       // Backend'e QR bilgilerini upsert et
@@ -332,7 +325,10 @@ const CompanyManagement = () => {
             </div>
             <div className="modal-body">
               <div style={{display:'flex', gap:20, alignItems:'flex-start', flexWrap:'wrap'}}>
-                <img src={qrDataUrl} alt="QR" style={{width:220, height:220, background:'#fff', padding:10, borderRadius:12}} />
+                <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                  <img src={qrDataUrl} alt="QR" style={{width:220, height:220, background:'#fff', padding:10, borderRadius:12}} />
+                  <a className="qr-download" href={qrDataUrl} download={`qr_${qrForCompany.taxNumber}.png`}>⬇️ QR'ı indir</a>
+                </div>
                 <div>
                   <p><strong>Adres:</strong> {qrForCompany.address}</p>
                   {qrForCompany.instagramUrl && <p><strong>Instagram:</strong> <a href={qrForCompany.instagramUrl} target="_blank" rel="noreferrer">{qrForCompany.instagramUrl}</a></p>}
