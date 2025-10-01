@@ -53,12 +53,12 @@ pipeline {
 
     post {
         success {
-            echo "AquaShare Backend, Database ve Nginx container'ları başarıyla ayağa kalktı!"
+            echo "birdamlapaylas.com Backend, Database ve Nginx container'ları başarıyla ayağa kalktı!"
             echo "Backend API: http://localhost:9095"
             echo "Frontend: http://localhost:80"
         }
         failure {
-            echo "AquaShare Backend build veya deploy başarısız!"
+            echo "birdamlapaylas.com Backend build veya deploy başarısız!"
         }
     }
 }

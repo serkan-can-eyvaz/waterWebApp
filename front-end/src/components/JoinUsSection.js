@@ -159,7 +159,7 @@ const JoinUsSection = () => {
       <div className="join-header">
         <h1 className="page-title">Sizde Katılın</h1>
         <p className="page-subtitle">
-          AquaShare hareketinin bir parçası olun ve sosyal sorumluluğunuzu gösterin
+          birdamlapaylas.com hareketinin bir parçası olun ve sosyal sorumluluğunuzu gösterin
         </p>
       </div>
       

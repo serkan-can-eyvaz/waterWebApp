@@ -1,6 +1,6 @@
-# 🌊 AquaShare - Water Web Application
+# 🌊 birdamlapaylas.com - Water Web Application
 
-AquaShare, Konya'da başlayan ve tüm Türkiye'ye yayılmayı hedefleyen sosyal sorumluluk projesidir. Suyu herkes için ulaşılabilir kılarken, sponsor markalara da güçlü bir görünürlük sağlar.
+birdamlapaylas.com, Konya'da başlayan ve tüm Türkiye'ye yayılmayı hedefleyen sosyal sorumluluk projesidir. Suyu herkes için ulaşılabilir kılarken, sponsor markalara da güçlü bir görünürlük sağlar.
 
 ## 🚀 Proje Özellikleri
 
@@ -174,7 +174,7 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 
 ## 📞 İletişim
 
-- **Website:** [AquaShare](https://www.biryudumiyilikharekit.com)
+- **Website:** [birdamlapaylas.com](https://www.biryudumiyilikharekit.com)
 - **Telefon:** 0 533 333 33 33
 - **Email:** info@aquashare.com
 

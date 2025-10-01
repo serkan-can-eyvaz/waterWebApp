@@ -52,12 +52,12 @@ pipeline {
 
     post {
         success {
-            echo "AquaShare Frontend build ve kopyalama işlemi tamamlandı!"
+            echo "birdamlapaylas.com Frontend build ve kopyalama işlemi tamamlandı!"
             echo "Backend API: http://localhost:9095"
             echo "Frontend: http://localhost:80"
         }
         failure {
-            echo "AquaShare Frontend build veya kopyalama başarısız!"
+            echo "birdamlapaylas.com Frontend build veya kopyalama başarısız!"
         }
     }
 }

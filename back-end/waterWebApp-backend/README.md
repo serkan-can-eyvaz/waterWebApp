@@ -1,6 +1,6 @@
 # Water Web App Backend
 
-Bu proje, AquaShare su paylaşım projesi için Spring Boot tabanlı REST API backend uygulamasıdır.
+Bu proje, birdamlapaylas.com su paylaşım projesi için Spring Boot tabanlı REST API backend uygulamasıdır.
 
 ## 🚀 Özellikler
 

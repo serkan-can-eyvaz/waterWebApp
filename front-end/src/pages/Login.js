@@ -63,7 +63,7 @@ const Login = () => {
         <div className="login-header">
           <div className="login-icon">🔐</div>
           <h1>Admin Girişi</h1>
-          <p>AquaShare Admin Paneli</p>
+          <p>birdamlapaylas.com Admin Paneli</p>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
