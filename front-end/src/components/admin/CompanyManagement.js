@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import QRCode from 'qrcode';
 import './CompanyManagement.css';
 
 const CompanyManagement = () => {
@@ -6,6 +7,10 @@ const CompanyManagement = () => {
   const [stats, setStats] = useState({ activeCompanyCount: 0, totalOrderQuantity: 0 });
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [showStats, setShowStats] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [qrForCompany, setQrForCompany] = useState(null);
+  const [qrDataUrl, setQrDataUrl] = useState('');
+  const [subscribeForm, setSubscribeForm] = useState({ fullName: '', email: '', phone: '' });
 
   useEffect(() => {
     fetchCompanies();
@@ -85,16 +90,60 @@ const CompanyManagement = () => {
     }
   };
 
+  const openQrForCompany = async (company) => {
+    const payload = {
+      companyName: company.companyName,
+      address: company.address,
+      instagramUrl: company.instagramUrl,
+      twitterUrl: company.twitterUrl,
+      linkedinUrl: company.linkedinUrl
+    };
+    const text = JSON.stringify(payload);
+    try {
+      const dataUrl = await QRCode.toDataURL(text, { width: 300, margin: 1 });
+      setQrDataUrl(dataUrl);
+      setQrForCompany(company);
+    } catch (e) {
+      console.error('QR üretilemedi', e);
+      alert('QR üretilirken hata oluştu.');
+    }
+  };
+
+  const submitSubscription = async (e) => {
+    e.preventDefault();
+    try {
+      const body = { ...subscribeForm, companyTaxNumber: qrForCompany?.taxNumber };
+      const res = await fetch('/api/subscriptions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      if (res.ok) {
+        alert('Kayıt alındı, fırsatlarda sizi bilgilendireceğiz.');
+        setSubscribeForm({ fullName: '', email: '', phone: '' });
+      } else {
+        throw new Error('Kayıt başarısız');
+      }
+    } catch (err) {
+      alert('Hata: ' + err.message);
+    }
+  };
+
   return (
     <div className="company-management">
       <div className="company-header">
         <h2>Firma Yönetimi</h2>
-        <button 
-          className="stats-toggle-btn"
-          onClick={() => setShowStats(!showStats)}
-        >
-          {showStats ? '📊 İstatistikleri Gizle' : '📊 İstatistikleri Göster'}
-        </button>
+        <div className="header-actions">
+          <input
+            type="text"
+            className="company-search-input"
+            placeholder="Firma adına göre ara..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button 
+            className="stats-toggle-btn"
+            onClick={() => setShowStats(!showStats)}
+          >
+            {showStats ? '📊 İstatistikleri Gizle' : '📊 İstatistikleri Göster'}
+          </button>
+        </div>
       </div>
 
       {showStats && (
@@ -120,13 +169,14 @@ const CompanyManagement = () => {
       )}
 
       <div className="companies-section">
+        {(() => { const filtered = companies.filter(c => (c.companyName||'').toLowerCase().includes(searchQuery.toLowerCase())); return (
         <div className="section-header">
-          <h3>Kayıtlı Firmalar ({companies.length})</h3>
+          <h3>Kayıtlı Firmalar ({filtered.length} / {companies.length})</h3>
           <div className="filter-info">
-            <span className="active-count">✅ Aktif: {companies.filter(c => c.isActive).length}</span>
-            <span className="inactive-count">❌ Pasif: {companies.filter(c => !c.isActive).length}</span>
+            <span className="active-count">✅ Aktif: {filtered.filter(c => c.isActive).length}</span>
+            <span className="inactive-count">❌ Pasif: {filtered.filter(c => !c.isActive).length}</span>
           </div>
-        </div>
+        </div> ) })()}
 
         <div className="companies-table-wrapper">
           <table className="companies-table">
@@ -144,7 +194,9 @@ const CompanyManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {companies.map(company => (
+              {companies
+                .filter(c => (c.companyName||'').toLowerCase().includes(searchQuery.toLowerCase()))
+                .map(company => (
                 <tr key={company.taxNumber}>
                   <td>
                     <div className="table-logo">
@@ -179,7 +231,7 @@ const CompanyManagement = () => {
                     </div>
                   </td>
                   <td className="actions-cell">
-                    <button 
+                  <button 
                       className={`toggle-btn ${company.isActive ? 'deactivate' : 'activate'}`}
                       onClick={() => toggleCompanyStatus(company)}
                     >
@@ -196,6 +248,12 @@ const CompanyManagement = () => {
                       onClick={() => setSelectedCompany(company)}
                     >
                       👁️ Detay
+                    </button>
+                    <button 
+                      className="view-btn"
+                      onClick={() => openQrForCompany(company)}
+                    >
+                      🧾 QR
                     </button>
                   </td>
                 </tr>
@@ -246,6 +304,49 @@ const CompanyManagement = () => {
                   {selectedCompany.linkedinUrl && <p><strong>LinkedIn:</strong> <a href={selectedCompany.linkedinUrl} target="_blank" rel="noopener noreferrer">{selectedCompany.linkedinUrl}</a></p>}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {qrForCompany && (
+        <div className="modal-overlay" onClick={() => setQrForCompany(null)}>
+          <div className="modal-content" onClick={(e)=>e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{qrForCompany.companyName} — QR Bilgileri</h3>
+              <button className="close-modal" onClick={() => setQrForCompany(null)}>❌</button>
+            </div>
+            <div className="modal-body">
+              <div style={{display:'flex', gap:20, alignItems:'flex-start', flexWrap:'wrap'}}>
+                <img src={qrDataUrl} alt="QR" style={{width:220, height:220, background:'#fff', padding:10, borderRadius:12}} />
+                <div>
+                  <p><strong>Adres:</strong> {qrForCompany.address}</p>
+                  {qrForCompany.instagramUrl && <p><strong>Instagram:</strong> <a href={qrForCompany.instagramUrl} target="_blank" rel="noreferrer">{qrForCompany.instagramUrl}</a></p>}
+                  {qrForCompany.twitterUrl && <p><strong>Twitter:</strong> <a href={qrForCompany.twitterUrl} target="_blank" rel="noreferrer">{qrForCompany.twitterUrl}</a></p>}
+                  {qrForCompany.linkedinUrl && <p><strong>LinkedIn:</strong> <a href={qrForCompany.linkedinUrl} target="_blank" rel="noreferrer">{qrForCompany.linkedinUrl}</a></p>}
+                </div>
+              </div>
+              <hr style={{borderColor:'rgba(255,255,255,0.2)'}} />
+              <h4>Fırsatları yakalayın</h4>
+              <form onSubmit={submitSubscription} className="edit-form">
+                <div className="form-row">
+                  <label>Ad Soyad</label>
+                  <input value={subscribeForm.fullName} onChange={(e)=>setSubscribeForm({...subscribeForm, fullName:e.target.value})} required />
+                </div>
+                <div className="form-row-inline">
+                  <div>
+                    <label>E-posta</label>
+                    <input type="email" value={subscribeForm.email} onChange={(e)=>setSubscribeForm({...subscribeForm, email:e.target.value})} required />
+                  </div>
+                  <div>
+                    <label>Telefon</label>
+                    <input value={subscribeForm.phone} onChange={(e)=>setSubscribeForm({...subscribeForm, phone:e.target.value})} />
+                  </div>
+                </div>
+                <div className="modal-actions">
+                  <button type="submit" className="submit-btn">Fırsatları Yakalayın</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
