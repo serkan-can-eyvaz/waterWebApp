@@ -96,13 +96,27 @@ const CompanyManagement = () => {
       address: company.address,
       instagramUrl: company.instagramUrl,
       twitterUrl: company.twitterUrl,
-      linkedinUrl: company.linkedinUrl
+      linkedinUrl: company.linkedinUrl,
+      companyTaxNumber: company.taxNumber
     };
-    const text = JSON.stringify(payload);
+    const text = JSON.stringify({ ...payload, formUrl: `${window.location.origin}/qr/${company.taxNumber}` });
     try {
       const dataUrl = await QRCode.toDataURL(text, { width: 300, margin: 1 });
       setQrDataUrl(dataUrl);
       setQrForCompany(company);
+      // Backend'e QR bilgilerini upsert et
+      await fetch('/api/qr-info/upsert', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          companyTaxNumber: company.taxNumber,
+          companyName: company.companyName,
+          address: company.address,
+          instagramUrl: company.instagramUrl,
+          twitterUrl: company.twitterUrl,
+          linkedinUrl: company.linkedinUrl
+        })
+      });
     } catch (e) {
       console.error('QR üretilemedi', e);
       alert('QR üretilirken hata oluştu.');

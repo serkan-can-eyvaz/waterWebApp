@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
+import QrForm from './pages/QrForm';
 import Login from './pages/Login';
 import AdminPanel from './pages/AdminPanel';
 
@@ -85,6 +86,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MainApp />} />
+        <Route path="/qr/:taxNumber" element={<QrForm />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<AdminApp />} />
         <Route path="/admin/*" element={<AdminApp />} />

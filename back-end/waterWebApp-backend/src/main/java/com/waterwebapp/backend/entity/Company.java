@@ -57,6 +57,9 @@ public class Company {
     
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Slide> slides;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Subscription> subscriptions;
     
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -180,6 +183,8 @@ public class Company {
     public void setSlides(List<Slide> slides) {
         this.slides = slides;
     }
+    public List<Subscription> getSubscriptions() { return subscriptions; }
+    public void setSubscriptions(List<Subscription> subscriptions) { this.subscriptions = subscriptions; }
     
     public LocalDateTime getCreatedAt() {
         return createdAt;
