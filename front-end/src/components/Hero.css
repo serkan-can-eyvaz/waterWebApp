@@ -50,8 +50,8 @@
   letter-spacing: -1px !important;
   position: relative !important;
   animation: slideInUp 1s ease-out forwards !important;
-  opacity: 0 !important;
-  transform: translateY(50px) !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
   line-height: 1 !important;
   white-space: nowrap !important;
 }
@@ -87,6 +87,10 @@
 }
 
 @keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
