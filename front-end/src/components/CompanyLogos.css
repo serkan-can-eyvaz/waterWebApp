@@ -58,12 +58,11 @@
   gap: 20px;
   width: 100%;
   max-width: 100%;
-  min-height: 440px; /* 2 satır için yeterli yükseklik */
 }
 
 .logo-item {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,8 +72,8 @@
 }
 
 .logo-placeholder {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   background: white;
   color: #333;
   display: flex;
@@ -89,8 +88,8 @@
 }
 
 .company-logo-img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   border-radius: 0;
   background: white;
