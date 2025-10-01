@@ -73,15 +73,9 @@ const CompanyGrid = () => {
                   onError={(e) => {
                     console.log('Grid logo yüklenemedi:', company.logoUrl);
                     e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
                   }}
                 />
               ) : null}
-              <div className="logo-placeholder" style={{display: company.logoUrl ? 'none' : 'flex'}}>
-                <span className="company-initial">
-                  {company.companyName ? company.companyName.charAt(0).toUpperCase() : 'C'}
-                </span>
-              </div>
             </div>
           </div>
         ))}

@@ -27,9 +27,8 @@
 .company-cell {
   width: 100% !important;
   height: 120px !important;
-  background: white !important;
+  background: transparent !important;
   border-radius: 8px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -52,23 +51,7 @@
   object-fit: contain !important;
 }
 
-.logo-placeholder {
-  width: 100% !important;
-  height: 100% !important;
-  background: #f8f9fa !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  color: #6c757d !important;
-  font-weight: bold !important;
-  font-size: 1.2rem !important;
-}
-
-.company-initial {
-  color: #667eea !important;
-  font-weight: 700 !important;
-  font-size: 2rem !important;
-}
+/* Placeholder stilleri kaldırıldı - sadece logolar gösterilecek */
 
 .loading-message,
 .error-message,
