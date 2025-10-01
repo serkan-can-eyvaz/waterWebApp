@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: repeat(8, 120px);
   gap: 8px;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   justify-content: center;
 }
@@ -81,7 +81,7 @@
 }
 
 /* RESPONSIVE - KUCUK EKRANLARDA SUTUN SAYISINI AZALT */
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .companies-grid {
     grid-template-columns: repeat(6, 100px);
     gap: 6px;
