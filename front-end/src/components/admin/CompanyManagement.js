@@ -57,9 +57,7 @@ const CompanyManagement = () => {
       'Instagram',
       'Twitter',
       'LinkedIn',
-      'Referans',
-      'Durum',
-      'Kayıt Tarihi'
+      'Referans'
     ];
 
     // Data satırları
@@ -71,9 +69,7 @@ const CompanyManagement = () => {
       escapeField(company.instagramUrl || ''),
       escapeField(company.twitterUrl || ''),
       escapeField(company.linkedinUrl || ''),
-      escapeField(company.reference || ''),
-      escapeField(company.isActive ? 'Aktif' : 'Pasif'),
-      escapeField(company.createdAt ? new Date(company.createdAt).toLocaleDateString('tr-TR') : '')
+      escapeField(company.reference || '')
     ]);
 
     // Tüm satırları birleştir
