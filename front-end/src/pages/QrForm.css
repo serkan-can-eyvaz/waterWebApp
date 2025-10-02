@@ -58,4 +58,73 @@
 
 .qr-thanks { color: #fff; text-align: center; }
 
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .qr-page {
+    padding: 20px 0;
+  }
+  
+  .qr-container {
+    padding: 0 15px;
+  }
+  
+  .qr-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .qr-card {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .qr-form {
+    max-width: 100%;
+    gap: 10px;
+  }
+  
+  .qr-form input {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  .qr-submit {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}
 
+@media (max-width: 480px) {
+  .qr-page {
+    padding: 15px 0;
+  }
+  
+  .qr-container {
+    padding: 0 10px;
+  }
+  
+  .qr-title {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  
+  .qr-card {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .qr-form-title {
+    font-size: 1.1rem;
+    margin: 20px 0 10px;
+  }
+  
+  .qr-form input {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  
+  .qr-submit {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}

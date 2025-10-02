@@ -91,5 +91,32 @@
 @media (max-width: 500px) {
   .companies-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  
+  .company-cell {
+    height: 100px !important;
+    padding: 3px !important;
+  }
+  
+  .grid-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .companies-grid {
+    grid-template-columns: repeat(1, 1fr) !important;
+    gap: 6px !important;
+  }
+  
+  .company-cell {
+    height: 80px !important;
+  }
+  
+  .grid-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
   }
 }

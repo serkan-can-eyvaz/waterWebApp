@@ -387,57 +387,33 @@ textarea.form-input {
 
 @media (max-width: 768px) {
   .join-header {
-    padding: 80px 20px 50px;
+    padding: 60px 20px 40px;
   }
   
   .page-title {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
   }
   
   .page-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .join-content {
-    padding: 60px 15px;
+    padding: 40px 15px;
   }
   
   .section-title {
-    font-size: 2.2rem;
-    margin-bottom: 40px;
+    font-size: 2rem;
+    margin-bottom: 30px;
   }
   
   .info-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 25px;
   }
   
-  .logo-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
-  }
-  
-  .cta-section {
-    padding: 60px 20px;
-  }
-  
-  .cta-title {
-    font-size: 2rem;
-  }
-  
-  .reservation {
-    flex-direction: column;
-    gap: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 2.2rem;
-  }
-  
-  .section-title {
-    font-size: 1.8rem;
+  .info-item {
+    padding: 25px;
   }
   
   .logo-grid {
@@ -445,11 +421,86 @@ textarea.form-input {
     gap: 12px;
   }
   
+  .cta-section {
+    padding: 40px 20px;
+  }
+  
   .cta-title {
+    font-size: 1.8rem;
+  }
+  
+  .reservation {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-input {
+    font-size: 16px;
+    padding: 12px;
+  }
+  
+  .social-input {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .join-header {
+    padding: 40px 15px 30px;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .page-subtitle {
+    font-size: 1rem;
+  }
+  
+  .join-content {
+    padding: 30px 10px;
+  }
+  
+  .section-title {
     font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+  
+  .info-item {
+    padding: 20px;
+  }
+  
+  .logo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+  }
+  
+  .cta-section {
+    padding: 30px 15px;
+  }
+  
+  .cta-title {
+    font-size: 1.4rem;
   }
   
   .reservation-label, .website, .phone {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  .form-input {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .social-input {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  
+  .submit-btn {
+    padding: 14px 30px;
     font-size: 16px;
   }
 }

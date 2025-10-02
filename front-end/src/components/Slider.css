@@ -183,16 +183,21 @@
 @media (max-width: 768px) {
   .slider-section {
     padding: 10px 0;
+    margin: 0;
+  }
+  
+  .slider-container {
+    padding: 0 10px;
   }
   
   .slider-wrapper {
-    height: 400px;
+    height: 300px;
+    border-radius: 15px;
   }
   
   .slider-track {
-    height: 400px;
+    height: 300px;
   }
-  
   
   .slider-nav {
     font-size: 1.5rem;
@@ -209,17 +214,42 @@
 }
 
 @media (max-width: 480px) {
+  .slider-section {
+    padding: 5px 0;
+  }
+  
+  .slider-container {
+    padding: 0 5px;
+  }
+  
   .slider-wrapper {
-    height: 350px;
+    height: 250px;
+    border-radius: 10px;
   }
   
   .slider-track {
-    height: 350px;
+    height: 250px;
   }
-  
   
   .slider-nav {
     font-size: 1.2rem;
     padding: 8px 12px;
+  }
+  
+  .slider-prev {
+    left: 5px;
+  }
+  
+  .slider-next {
+    right: 5px;
+  }
+  
+  .slider-dots {
+    bottom: 10px;
+  }
+  
+  .slider-dot {
+    width: 8px;
+    height: 8px;
   }
 }

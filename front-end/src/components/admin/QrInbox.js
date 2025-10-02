@@ -189,7 +189,6 @@ const QrInbox = () => {
               <tr>
                 <th>Vergi No</th>
                 <th>Firma</th>
-                <th>Adres</th>
                 <th>Sosyal</th>
               </tr>
             </thead>
@@ -197,7 +196,6 @@ const QrInbox = () => {
               <tr>
                 <td>{company.companyTaxNumber}</td>
                 <td className="company-name-cell">{company.companyName}</td>
-                <td className="address-cell">{company.address}</td>
                 <td>
                   <div className="social-links inline">
                     {company.instagramUrl && <a href={company.instagramUrl} target="_blank" rel="noreferrer" className="social-link instagram">IG</a>}
