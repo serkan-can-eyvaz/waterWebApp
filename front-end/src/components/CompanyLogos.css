@@ -62,8 +62,8 @@
 }
 
 .logo-item {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,8 +73,8 @@
 }
 
 .logo-placeholder {
-  width: 200px;
-  height: 200px;
+  width: 90%;
+  height: 90%;
   background: white;
   color: #333;
   display: flex;
@@ -89,8 +89,8 @@
 }
 
 .company-logo-img {
-  width: 200px;
-  height: 200px;
+  width: 90%;
+  height: 90%;
   object-fit: contain;
   border-radius: 0;
   background: white;
@@ -163,7 +163,8 @@
   .logos-grid {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 15px;
+    gap: 12px;
+    min-height: 360px;
   }
   
   .logo-placeholder {
@@ -181,7 +182,8 @@
   .logos-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
+    min-height: 300px;
   }
   
   .logo-placeholder {
