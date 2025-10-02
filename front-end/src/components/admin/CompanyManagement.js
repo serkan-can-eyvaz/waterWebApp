@@ -40,6 +40,64 @@ const CompanyManagement = () => {
     }
   };
 
+  const exportCompaniesCsv = () => {
+    // Excel uyumlu field escaping
+    const escapeField = (field) => {
+      if (field === null || field === undefined) return '""';
+      const str = String(field);
+      return `"${str.replace(/"/g, '""')}"`;
+    };
+
+    // Header satırı
+    const headerRow = [
+      'Firma Adı',
+      'Vergi No',
+      'Sipariş Adedi',
+      'Adres',
+      'Instagram',
+      'Twitter',
+      'LinkedIn',
+      'Referans',
+      'Durum',
+      'Kayıt Tarihi'
+    ];
+
+    // Data satırları
+    const dataRows = companies.map(company => [
+      escapeField(company.companyName || ''),
+      escapeField(company.taxNumber || ''),
+      escapeField(company.orderQuantity || ''),
+      escapeField(company.address || ''),
+      escapeField(company.instagramUrl || ''),
+      escapeField(company.twitterUrl || ''),
+      escapeField(company.linkedinUrl || ''),
+      escapeField(company.reference || ''),
+      escapeField(company.isActive ? 'Aktif' : 'Pasif'),
+      escapeField(company.createdAt ? new Date(company.createdAt).toLocaleDateString('tr-TR') : '')
+    ]);
+
+    // Tüm satırları birleştir
+    const allRows = [headerRow, ...dataRows];
+    
+    // Her satırı semicolon ile ayır (Excel Türkiye ayarları için)
+    const csv = allRows.map(row => row.join(';')).join('\r\n');
+    
+    // Excel'in kesinlikle tanıyacağı format
+    const csvContent = "\uFEFF" + csv;
+    
+    // Excel uyumlu MIME type
+    const blob = new Blob([csvContent], { 
+      type: 'application/csv;charset=utf-8;' 
+    });
+    
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `firmalar_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const deleteCompany = async (taxNumber) => {
     if (window.confirm('Bu firmayı silmek istediğinizden emin misiniz?')) {
       try {
@@ -167,6 +225,9 @@ const CompanyManagement = () => {
           <div className="filter-info">
             <span className="active-count">✅ Aktif: {filtered.filter(c => c.isActive).length}</span>
             <span className="inactive-count">❌ Pasif: {filtered.filter(c => !c.isActive).length}</span>
+            <button className="view-btn" onClick={exportCompaniesCsv} style={{marginLeft: '10px'}}>
+              📊 CSV Dışa Aktar
+            </button>
           </div>
         </div> ) })()}
 
