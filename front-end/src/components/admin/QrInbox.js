@@ -67,6 +67,17 @@ const QrInbox = () => {
     return true;
   });
 
+  // Tarihi dd.MM.yyyy formatına çevirir
+  const formatDateDmy = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '';
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    return `${dd}.${mm}.${yyyy}`;
+  };
+
   const exportCsv = () => {
     console.log('Export CSV - displaySubs:', displaySubs);
     console.log('Export CSV - taxNumber:', taxNumber);
@@ -75,13 +86,9 @@ const QrInbox = () => {
     console.log('Export CSV - subs length (original):', subs.length);
     console.log('Export CSV - company:', company);
     
-    // Excel uyumlu tarih formatı
+    // CSV'ye sadece gün.ay.yıl yaz (saat yok)
     const formatDateForExcel = (dateString) => {
-      if (!dateString) return '';
-      const date = new Date(dateString);
-      if (isNaN(date.getTime())) return '';
-      // Excel'in tanıyacağı format: YYYY-MM-DD HH:MM:SS
-      return date.toISOString().replace('T', ' ').substring(0, 19);
+      return formatDateDmy(dateString);
     };
 
     // Excel uyumlu field escaping - TÜM alanları tırnak içine al
@@ -223,7 +230,7 @@ const QrInbox = () => {
                 <td className="company-name-cell">{s.fullName}</td>
                 <td>{s.email}</td>
                 <td>{s.phone}</td>
-                <td>{s.createdAt || '-'}</td>
+                <td>{formatDateDmy(s.createdAt) || '-'}</td>
               </tr>
             ))}
           </tbody>
