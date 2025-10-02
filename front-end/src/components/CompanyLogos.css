@@ -67,7 +67,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: transparent;
   border: none;
   padding: 0;
 }
@@ -75,7 +75,7 @@
 .logo-placeholder {
   width: 90%;
   height: 90%;
-  background: white;
+  background: transparent;
   color: #333;
   display: flex;
   align-items: center;
@@ -93,7 +93,7 @@
   height: 90%;
   object-fit: contain;
   border-radius: 0;
-  background: white;
+  background: transparent;
 }
 
 .company-logo-img:hover {

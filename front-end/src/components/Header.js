@@ -30,6 +30,7 @@ const Header = ({ scrollToSection }) => {
   return (
     <header className="header">
       <nav className="nav">
+        <img src={process.env.PUBLIC_URL + '/brand.svg'} alt="birdamlapaylas" style={{height:24, width:24}} />
         <button 
           onClick={() => handleNavClick('home')}
           className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
